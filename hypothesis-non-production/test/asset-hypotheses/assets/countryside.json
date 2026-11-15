@@ -1,0 +1,5 @@
+[
+  {"id":"dirt_trail","category":"ground","style":"rural","tags":["trail","countryside","gravel"],"description":"A dirt trail through open country","file":"trail.svg","layer":"ground","size":[960,142]},
+  {"id":"pine_grove","category":"landscape","style":"rural","tags":["pines","forest","rural"],"description":"A cluster of tall pines in silhouette","file":"pines.svg","layer":"skyline","size":[213,216]},
+  {"id":"roadside_boulder","category":"detail","style":"rural","tags":["rock","boulder","nature"],"description":"A low boulder at the edge of the trail","file":"boulder.svg","layer":"prop","size":[139,77]}
+]

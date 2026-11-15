@@ -1,0 +1,441 @@
+{
+  "startedAt": "2026-11-15T02:51:40.800Z",
+  "prompt": "scene-v1",
+  "temperature": 0.55,
+  "results": [
+    {
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "fixture": "powered",
+      "ms": 2770,
+      "status": 400,
+      "error": "Model returned HTTP 400: {\"error\":{\"message\":\"Generated JSON does not match the expected schema. Please adjust your prompt. See 'failed_generation' for more details. Error: jsonschema: '/beats' does not validate with /properties/beats/maxItems: maxItems: got 6, want 5\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_fa"
+    },
+    {
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "fixture": "dead",
+      "ms": 2420,
+      "checks": {
+        "openingShowsPriorChoice": true,
+        "timelineOrderedBeforeChoice": true,
+        "lateEvent": true,
+        "distinctCues": true,
+        "largestGapSeconds": 7,
+        "dialogueWords": 21,
+        "twoDifferentActions": true
+      },
+      "scene": {
+        "title": "Тишина в затопленном переходе",
+        "beats": [
+          {
+            "at": 0,
+            "cue": "radio_dead",
+            "screen": "Мара нажимает кнопку рации — индикатор остаётся темным, динамик молчит.",
+            "dialogue": [
+              {
+                "speaker": "mara",
+                "line": "Батарейки нет… где же они?"
+              }
+            ],
+            "change": "мара_понимает_отсутствие_питания"
+          },
+          {
+            "at": 5,
+            "cue": "approach_cache",
+            "screen": "Она подходит к закрытому металлическому шкафу, стоящему у лужи.",
+            "dialogue": [
+              {
+                "speaker": "mara",
+                "line": "Лёва, ты здесь?"
+              }
+            ],
+            "change": "мара_выступает_к_шкафу"
+          },
+          {
+            "at": 10,
+            "cue": "listen_at_cache",
+            "screen": "Мара прижимает ухо к двери, прислушиваясь к глухим звукам.",
+            "dialogue": [
+              {
+                "speaker": "mara",
+                "line": "Там что‑то шуршит…"
+              }
+            ],
+            "change": "мара_слышит_шум"
+          },
+          {
+            "at": 15,
+            "cue": "movement_in_puddle",
+            "screen": "По лужи рядом с шкафом пробегает лёгкая рябь, будто кто‑то прошёл.",
+            "dialogue": [
+              {
+                "speaker": "mara",
+                "line": "Кто идёт?"
+              }
+            ],
+            "change": "мара_замечает_рябь"
+          },
+          {
+            "at": 20,
+            "cue": "door_twitch",
+            "screen": "Дверца шкафа дергается изнутри, как будто кто‑то стучит в ответ.",
+            "dialogue": [
+              {
+                "speaker": "mara",
+                "line": "Три… три… два…? Ты слышишь наш код?"
+              }
+            ],
+            "change": "мара_получает_ответ"
+          }
+        ],
+        "choices": [
+          {
+            "action": "open_cache",
+            "label": "Открыть шкаф",
+            "nextOpening": "Мара бросает замок и раскрывает тайник.",
+            "lastingEffect": "мара_получит_доступ_к_внутренности"
+          },
+          {
+            "action": "retreat",
+            "label": "Отойти и скрыться за углом",
+            "nextOpening": "Мара отступает, оставляя шкаф закрытым.",
+            "lastingEffect": "мара_потеряет_возможность_сейчас_открыть"
+          }
+        ]
+      }
+    },
+    {
+      "provider": "nvidia",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "fixture": "powered",
+      "ms": 4666,
+      "checks": {
+        "openingShowsPriorChoice": true,
+        "timelineOrderedBeforeChoice": true,
+        "lateEvent": true,
+        "distinctCues": true,
+        "largestGapSeconds": 8,
+        "dialogueWords": 37,
+        "twoDifferentActions": true
+      },
+      "scene": {
+        "title": "Стук из шкафа",
+        "beats": [
+          {
+            "at": 0,
+            "cue": "radio_power",
+            "screen": "В затопленном переходе рация оживает. Индикатор горит, из динамика доносится тихий шорох. Мара стоит у металлического шкафа.",
+            "dialogue": [
+              {
+                "speaker": "radio_voice",
+                "line": "Мара? Ты меня слышишь?"
+              },
+              {
+                "speaker": "mara",
+                "line": "Кто говорит?"
+              }
+            ],
+            "change": "Рация включена, голос активен."
+          },
+          {
+            "at": 7,
+            "cue": "knock_inside",
+            "screen": "Изнутри шкафа раздаётся отчётливый стук.",
+            "dialogue": [
+              {
+                "speaker": "mara",
+                "line": "Три удара... потом два."
+              },
+              {
+                "speaker": "radio_voice",
+                "line": "Иди к ретранслятору. Быстрее."
+              }
+            ],
+            "change": "Звук из шкафа совпадает с детским кодом Лёвы."
+          },
+          {
+            "at": 15,
+            "cue": "door_twitch",
+            "screen": "Дверца шкафа резко дёргается изнутри. В луже у ног Мары проходит рябь.",
+            "dialogue": [
+              {
+                "speaker": "mara",
+                "line": "Лёва, это ты? Ответь на вопрос."
+              },
+              {
+                "speaker": "radio_voice",
+                "line": "Время уходит. Иди к ретранслятору."
+              }
+            ],
+            "change": "Шкаф реагирует, голос требует уйти."
+          },
+          {
+            "at": 23,
+            "cue": "listen_at_cache",
+            "screen": "Мара прижимает ухо к металлу шкафа. Рация всё ещё молчит, но внутри что-то двигается.",
+            "dialogue": [
+              {
+                "speaker": "mara",
+                "line": "Я не уйду, пока не узнаю, кто здесь."
+              },
+              {
+                "speaker": "radio_voice",
+                "line": "Решай. Шкаф или я."
+              }
+            ],
+            "change": "Конфликт между шкафом и голосом достиг пика."
+          }
+        ],
+        "choices": [
+          {
+            "action": "open_cache",
+            "label": "Открыть шкаф",
+            "nextOpening": "Дверца распахивается, и Мара видит, кто внутри.",
+            "lastingEffect": "Мара узнаёт личность в шкафу и теряет возможность последовать за голосом прямо сейчас."
+          },
+          {
+            "action": "follow_voice",
+            "label": "Пойти к ретранслятору",
+            "nextOpening": "Мара покидает шкаф и направляется к ретранслятору по указанию голоса.",
+            "lastingEffect": "Мара доверяется незнакомому голосу, оставляя шкаф закрытым и его содержимое неизвестным."
+          }
+        ]
+      }
+    },
+    {
+      "provider": "nvidia",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "fixture": "dead",
+      "ms": 3557,
+      "checks": {
+        "openingShowsPriorChoice": true,
+        "timelineOrderedBeforeChoice": true,
+        "lateEvent": true,
+        "distinctCues": true,
+        "largestGapSeconds": 8,
+        "dialogueWords": 20,
+        "twoDifferentActions": true
+      },
+      "scene": {
+        "title": "Тишина в эфире",
+        "beats": [
+          {
+            "at": 0,
+            "cue": "radio_dead",
+            "screen": "Мара нажимает кнопку рации. Индикатор остаётся тёмным, динамик молчит.",
+            "dialogue": [
+              {
+                "speaker": "mara",
+                "line": "Батарейки нет. Рация мертва."
+              }
+            ],
+            "change": "Мара подтверждает отсутствие связи."
+          },
+          {
+            "at": 7,
+            "cue": "approach_cache",
+            "screen": "Мара подходит к закрытому шкафу и останавливается у него.",
+            "dialogue": [
+              {
+                "speaker": "mara",
+                "line": "Лёва? Если ты здесь — стучи."
+              }
+            ],
+            "change": "Мара обращается к шкафу, ожидая ответа."
+          },
+          {
+            "at": 14,
+            "cue": "knock_inside",
+            "screen": "Из шкафа раздаётся стук: три удара, пауза, два удара.",
+            "dialogue": [
+              {
+                "speaker": "mara",
+                "line": "Три и два. Это наш знак."
+              }
+            ],
+            "change": "Мара узнаёт детский сигнал брата."
+          },
+          {
+            "at": 22,
+            "cue": "door_twitch",
+            "screen": "Закрытая дверца дёргается изнутри.",
+            "dialogue": [
+              {
+                "speaker": "mara",
+                "line": "Я открываю. Стоять на месте."
+              }
+            ],
+            "change": "Дверца шкафа движется, что-то внутри хочет выйти."
+          }
+        ],
+        "choices": [
+          {
+            "action": "open_cache",
+            "label": "Открыть шкаф",
+            "nextOpening": "Дверца распахивается, и из темноты выходит фигура.",
+            "lastingEffect": "Мара сталкивается лицом к лицу с тем, кто был внутри шкафа."
+          },
+          {
+            "action": "retreat",
+            "label": "Отойти и скрыться",
+            "nextOpening": "Мара отходит за угол, шкаф остаётся закрытым.",
+            "lastingEffect": "Мара теряет визуальный контакт с шкафом и может упустить шанс найти брата."
+          }
+        ]
+      }
+    },
+    {
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "fixture": "powered",
+      "ms": 2451,
+      "checks": {
+        "openingShowsPriorChoice": true,
+        "timelineOrderedBeforeChoice": true,
+        "lateEvent": true,
+        "distinctCues": true,
+        "largestGapSeconds": 10,
+        "dialogueWords": 21,
+        "twoDifferentActions": true
+      },
+      "scene": {
+        "title": "Затопленный переход",
+        "beats": [
+          {
+            "at": 0,
+            "cue": "radio_power",
+            "screen": "Индикатор рации вспыхивает зелёным в темноте перехода.",
+            "dialogue": [
+              {
+                "speaker": "radio_voice",
+                "line": "Мара? Ты взяла рацию. Иди сюда, к ретранслятору."
+              }
+            ],
+            "change": "Рация включена и транслирует голос."
+          },
+          {
+            "at": 10,
+            "cue": "approach_cache",
+            "screen": "Мара делает шаг к металлическому шкафу, игнорируя призыв в рации.",
+            "dialogue": [
+              {
+                "speaker": "mara",
+                "line": "Лёва, это ты стучал? Отвечай."
+              }
+            ],
+            "change": "Мара приближается к тайнику."
+          },
+          {
+            "at": 20,
+            "cue": "knock_inside",
+            "screen": "Изнутри шкафа раздаётся глухой стук: три удара, пауза, два удара.",
+            "dialogue": [
+              {
+                "speaker": "radio_voice",
+                "line": "Не трать время на железо. Жду тебя наверх."
+              }
+            ],
+            "change": "Тайник отвечает знакомым детским шифром."
+          }
+        ],
+        "choices": [
+          {
+            "action": "open_cache",
+            "label": "Открыть шкаф",
+            "nextOpening": "Дверца шкафа со скрипом поддается, открывая вид на...",
+            "lastingEffect": "Мара проверяет тайник лично, рискуя застрять."
+          },
+          {
+            "action": "follow_voice",
+            "label": "Пойти к ретранслятору",
+            "nextOpening": "Мара разворачивается и идет по лужам наверх к источнику сигнала.",
+            "lastingEffect": "Мара следует за голосом, оставляя шкаф закрытым."
+          }
+        ]
+      }
+    },
+    {
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "fixture": "dead",
+      "ms": 1866,
+      "checks": {
+        "openingShowsPriorChoice": true,
+        "timelineOrderedBeforeChoice": true,
+        "lateEvent": true,
+        "distinctCues": true,
+        "largestGapSeconds": 10,
+        "dialogueWords": 9,
+        "twoDifferentActions": true
+      },
+      "scene": {
+        "title": "Тихий шаг",
+        "beats": [
+          {
+            "at": 0,
+            "cue": "radio_dead",
+            "screen": "Мара смотрит на мёртвый экран рации в темноте перехода.",
+            "dialogue": [
+              {
+                "speaker": "mara",
+                "line": "Села. Ни звука."
+              }
+            ],
+            "change": "Рация бесполезна."
+          },
+          {
+            "at": 10,
+            "cue": "approach_cache",
+            "screen": "Мара шагает к металлическому шкафу.",
+            "dialogue": [
+              {
+                "speaker": "mara",
+                "line": "Лёва? Ты здесь?"
+              }
+            ],
+            "change": "Мара у цели."
+          },
+          {
+            "at": 18,
+            "cue": "listen_at_cache",
+            "screen": "Мара приникает ухом к холодному металлу дверцы.",
+            "dialogue": [
+              {
+                "speaker": "mara",
+                "line": "Отзовися."
+              }
+            ],
+            "change": "Тишина внутри."
+          },
+          {
+            "at": 24,
+            "cue": "knock_inside",
+            "screen": "Внутри шкафа раздаётся глухой и чёткий стук: три удара, пауза, два.",
+            "dialogue": [
+              {
+                "speaker": "mara",
+                "line": "Наш код..."
+              }
+            ],
+            "change": "Сигнал подтвержден."
+          }
+        ],
+        "choices": [
+          {
+            "action": "open_cache",
+            "label": "Открыть шкаф",
+            "nextOpening": "Мара резко дёргает дверцу металлического шкафа на себя.",
+            "lastingEffect": "Мара вступает в прямой контакт с тем, кто прячется внутри."
+          },
+          {
+            "action": "retreat",
+            "label": "Отойти в тень",
+            "nextOpening": "Мара отступает от шкафа в темноту затопленного коридора.",
+            "lastingEffect": "Мара теряет инициативу, но избегает возможной ловушки."
+          }
+        ]
+      }
+    }
+  ]
+}

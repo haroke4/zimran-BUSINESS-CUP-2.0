@@ -237,6 +237,8 @@ ios/build/
 # ---------------------------------------------------------------------------
 *.sqlite
 *.sqlite3
+/output/app/
+/output/webapp/
 *.db
 *.db-journal
 *.rdb
@@ -337,3 +339,6 @@ mcp.json
 .ai/
 .llm/
 prompts/local/
+
+# Local presentation build intermediates
+/hypothesis-non-production/storyfork-pitch/.build/

@@ -1,0 +1,227 @@
+{
+  "packVersion": 1,
+  "width": 1080,
+  "height": 1920,
+  "title": "Разбитый автомат на фудкорте",
+  "world": "zombie_mall",
+  "lighting": "emergency",
+  "room": "mall food court",
+  "caption": "У разбитого торгового автомата валяются перевёрнутые стулья. Опустевший фудкорт освещает красная аварийная лампа.",
+  "layers": [
+    {
+      "slot": "backdrop",
+      "id": "wall_mall_panel",
+      "state": "damaged",
+      "mode": "emergency",
+      "image": "storyfork_assets/svg/surface/wall_mall_panel__damaged__emergency.svg",
+      "size": [
+        512,
+        512
+      ],
+      "anchor": [
+        0,
+        0
+      ],
+      "x": 0,
+      "y": 0,
+      "w": 1080,
+      "h": 1160,
+      "depth": 0,
+      "fit": "tile",
+      "opacity": 1
+    },
+    {
+      "slot": "floor",
+      "id": "floor_tile",
+      "state": "damaged",
+      "mode": "emergency",
+      "image": "storyfork_assets/svg/surface/floor_tile__damaged__emergency.svg",
+      "size": [
+        512,
+        256
+      ],
+      "anchor": [
+        0,
+        0
+      ],
+      "x": 0,
+      "y": 1160,
+      "w": 1080,
+      "h": 760,
+      "depth": 2,
+      "fit": "tile",
+      "opacity": 1
+    },
+    {
+      "slot": "wallDetail",
+      "id": "skylight",
+      "state": "broken",
+      "mode": "emergency",
+      "image": "storyfork_assets/svg/structure/skylight__broken__emergency.svg",
+      "size": [
+        400,
+        140
+      ],
+      "anchor": [
+        200,
+        0
+      ],
+      "x": 540,
+      "y": 260,
+      "w": 460,
+      "h": 340,
+      "depth": 3,
+      "fit": "sprite",
+      "opacity": 1
+    },
+    {
+      "slot": "left",
+      "id": "chair",
+      "state": "overturned",
+      "mode": "emergency",
+      "image": "storyfork_assets/svg/structure/chair__overturned__emergency.svg",
+      "size": [
+        180,
+        100
+      ],
+      "anchor": [
+        90,
+        100
+      ],
+      "x": 245,
+      "y": 1208,
+      "w": 340,
+      "h": 450,
+      "depth": 4,
+      "fit": "sprite",
+      "opacity": 1
+    },
+    {
+      "slot": "right",
+      "id": "table_cafe",
+      "state": "overturned",
+      "mode": "emergency",
+      "image": "storyfork_assets/svg/structure/table_cafe__overturned__emergency.svg",
+      "size": [
+        190,
+        200
+      ],
+      "anchor": [
+        95,
+        200
+      ],
+      "x": 835,
+      "y": 1208,
+      "w": 340,
+      "h": 450,
+      "depth": 4,
+      "fit": "sprite",
+      "opacity": 1
+    },
+    {
+      "slot": "focus",
+      "id": "vending_machine",
+      "state": "broken",
+      "mode": "emergency",
+      "image": "storyfork_assets/svg/structure/vending_machine__broken__emergency.svg",
+      "size": [
+        150,
+        270
+      ],
+      "anchor": [
+        75,
+        270
+      ],
+      "x": 335,
+      "y": 1374,
+      "w": 380,
+      "h": 445,
+      "depth": 7,
+      "fit": "sprite",
+      "opacity": 1
+    },
+    {
+      "slot": "illumination",
+      "id": "emergency_light",
+      "state": "red",
+      "mode": "default",
+      "image": "light/emergency_light__red.svg",
+      "size": [
+        384,
+        384
+      ],
+      "anchor": [
+        192,
+        192
+      ],
+      "x": 745,
+      "y": 775,
+      "w": 580,
+      "h": 980,
+      "depth": 8,
+      "fit": "sprite",
+      "opacity": 0.8
+    },
+    {
+      "slot": "frame",
+      "id": "food_court",
+      "state": "fg",
+      "mode": "default",
+      "image": "occluder/food_court__fg.svg",
+      "size": [
+        1080,
+        1920
+      ],
+      "anchor": [
+        0,
+        0
+      ],
+      "x": 0,
+      "y": 0,
+      "w": 1080,
+      "h": 1920,
+      "depth": 11,
+      "fit": "fill",
+      "opacity": 1
+    },
+    {
+      "slot": "weather",
+      "id": "dust_particles",
+      "state": "default",
+      "mode": "default",
+      "image": "overlay/dust_particles__default.svg",
+      "size": [
+        1080,
+        1920
+      ],
+      "anchor": [
+        0,
+        0
+      ],
+      "x": 0,
+      "y": 0,
+      "w": 1080,
+      "h": 1920,
+      "depth": 12,
+      "fit": "fill",
+      "opacity": 0.52
+    }
+  ],
+  "custom": null,
+  "diagnostics": {
+    "repairs": [],
+    "unmatchedFocus": null,
+    "model": "gemini-3.6-flash",
+    "directionModel": "gemini-3.6-flash",
+    "directionMs": 12529,
+    "compositionMs": 8928,
+    "attempts": 2,
+    "focusQuery": "vending machine",
+    "shortlist": [
+      "mall_vending_machine",
+      "vending_machine",
+      "mall_ice_machine",
+      "engine_block"
+    ]
+  }
+}

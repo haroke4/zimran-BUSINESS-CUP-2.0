@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StoryFork — конструктор сцен</title>
+  <link rel="icon" href="data:,">
+  <script type="module" src="./preview.mjs"></script>
+</head>
+<body>
+  <main>
+    <header><h1>StoryFork</h1><a href="/asset-hypotheses/episode.html">Демо эпизода</a></header>
+    <section class="workspace">
+      <div class="controls">
+        <form>
+          <label for="brief">Какую сцену собрать?</label>
+          <textarea id="brief" required maxlength="1200" rows="5"></textarea>
+          <div class="presets" aria-label="Примеры сцен">
+            <button type="button" data-preset="mall">Фудкорт</button>
+            <button type="button" data-preset="ship">Палуба в шторм</button>
+            <button type="button" data-preset="custom">Каюта с компасом</button>
+          </div>
+          <label class="check"><input id="custom" type="checkbox" checked> Разрешить рисовать недостающий предмет</label>
+          <button id="generate" type="submit">Собрать сцену</button>
+          <p id="status" role="status"></p>
+        </form>
+        <section id="result" hidden>
+          <h2 id="title"></h2>
+          <p id="caption"></p>
+          <div class="presets">
+            <button id="download" type="button">Скачать JSON</button>
+          </div>
+          <p id="diagnostics"></p>
+          <details><summary>Ассеты и состояния</summary><ul id="layers"></ul></details>
+        </section>
+      </div>
+      <svg id="stage" viewBox="0 0 1080 1920" role="img" aria-label="Превью сцены"></svg>
+    </section>
+  </main>
+</body>
+</html>

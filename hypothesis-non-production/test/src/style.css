@@ -1,0 +1,165 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  color-scheme: dark;
+  font-family: "Geist", "Inter", system-ui, sans-serif;
+  color: #eeeae4;
+  background: #101217;
+  --accent: #ffb36d;
+  --muted: #a5a6ad;
+  --line: #32323a;
+}
+
+body {
+  min-width: 280px;
+  margin: 0;
+}
+
+main {
+  width: min(100% - 48px, 1056px);
+  margin: 0 auto;
+  padding: 36px 0 52px;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.wordmark {
+  color: #f5f0e8;
+  font-weight: 850;
+  letter-spacing: 0.14em;
+  font-size: 14px;
+}
+
+.wordmark span {
+  color: var(--accent);
+}
+
+.engine {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.player {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #1a1c23;
+  box-shadow: 0 18px 48px #0004;
+}
+
+.stage {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #121720;
+}
+
+.stage canvas {
+  display: block;
+}
+
+.progress {
+  height: 2px;
+  background: #39383c;
+}
+
+#progress {
+  width: 100%;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: var(--accent);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 100px;
+  padding: 18px 24px;
+}
+
+h1 {
+  margin: 0 0 4px;
+  font-size: 23px;
+  font-weight: 650;
+  letter-spacing: -0.035em;
+}
+
+.caption p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.actions,
+.choices {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+button {
+  min-height: 44px;
+  padding: 0 15px;
+  border: 1px solid #47464e;
+  border-radius: 6px;
+  color: inherit;
+  background: transparent;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #ffffff12;
+}
+
+button:focus-visible {
+  outline: 2px solid #fff2d4;
+  outline-offset: 3px;
+}
+
+button.primary {
+  border-color: var(--accent);
+  color: #231a15;
+  background: var(--accent);
+}
+
+button.primary:hover {
+  border-color: #ffc896;
+  background: #ffc896;
+}
+
+@media (max-width: 650px) {
+  main {
+    width: calc(100% - 24px);
+    padding-top: 20px;
+  }
+
+  .app-header {
+    margin-bottom: 14px;
+  }
+
+  .controls {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+    padding: 15px;
+  }
+}

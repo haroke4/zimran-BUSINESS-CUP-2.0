@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FRAMEBREAK Asset Lab</title>
+  <link rel="icon" href="data:,">
+
+  <style>
+    * { box-sizing: border-box; }
+    body { background: #111322; color: #f7ead9; margin: 0; font: 16px/1.45 Inter, system-ui, sans-serif; }
+    main { width: min(100% - 32px, 960px); margin: 24px auto 32px; }
+    header { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: baseline; }
+    h1 { font: 600 25px/1.25 Inter, system-ui, sans-serif; letter-spacing: -.03em; margin: 0 0 10px; }
+    header span, #status { color: #c1afca; }
+    #stage { width: 100%; aspect-ratio: 16/9; background: #17192d; overflow: hidden; }
+    canvas { display: block; width: 100% !important; height: auto !important; }
+    #controls { display: flex; gap: 8px; flex-wrap: wrap; margin: 14px 0 8px; align-items: center; }
+    button, select { background: #26283e; color: inherit; border: 1px solid #615470; border-radius: 5px; padding: 8px 11px; font: inherit; }
+    button:enabled { cursor: pointer; }
+    button:disabled { opacity: .46; }
+    button:focus-visible, select:focus-visible { outline: 2px solid #ffbd94; }
+    #status { margin: 9px 0; }
+  </style>
+  <main>
+    <header><h1>FRAMEBREAK Asset Lab</h1><span>Modular 2D stage</span></header>
+    <div id="stage" aria-label="Animated street scene"></div>
+    <div id="controls">
+      <label for="location">Location</label>
+      <select id="location"><option value="wet">Rainy crossing</option><option value="dry">Quiet block</option><option value="trail">Pine trail</option></select>
+      <button id="interact" disabled>Open cabinet</button>
+      <button id="take" hidden>Take the battery</button>
+      <button id="leave" hidden>Leave it here</button>
+      <select id="clip" aria-label="Character clip">
+        <option value="walk">Walk</option><option value="run">Run</option>
+        <option value="jump">Jump</option><option value="fly">Fly</option>
+        <option value="cry">Cry</option><option value="die">Die</option>
+      </select>
+      <button id="perform" disabled>Play clip</button>
+    </div>
+    <p id="status" role="status">Loading scene…</p>
+  </main>
+  <script type="module" src="./player.mjs"></script>
+</html>

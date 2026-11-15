@@ -1,0 +1,695 @@
+{
+  "startedAt": "2026-11-15T02:54:26.454Z",
+  "prompt": "scene-v3",
+  "temperature": 0.55,
+  "results": [
+    {
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "fixture": "powered",
+      "ms": 2853,
+      "checks": {
+        "openingShowsPriorChoice": true,
+        "timelineOrderedBeforeChoice": true,
+        "lateEvent": true,
+        "distinctCues": true,
+        "largestGapSeconds": 8,
+        "dialogueWords": 7,
+        "twoDifferentActions": true
+      },
+      "scene": {
+        "title": "Тени в затопленном переходе",
+        "beats": [
+          {
+            "at": 0,
+            "cue": "radio_power",
+            "screen": "Рация вспыхивает, индикатор зелёный, слышен тихий гудок.",
+            "dialogue": [
+              {
+                "speaker": "radio_voice",
+                "line": "Лёва? Это я."
+              }
+            ],
+            "change": "Мара получает живую связь, знает, что голос её брата активен."
+          },
+          {
+            "at": 7,
+            "cue": "knock_inside",
+            "screen": "Из закрытого шкафа доносится стук: три удара, пауза, два.",
+            "dialogue": [
+              {
+                "speaker": "mara",
+                "line": "Кто внутри?"
+              }
+            ],
+            "change": "Подтверждено, стук совпадает с их детским кодом."
+          },
+          {
+            "at": 14,
+            "cue": "movement_in_puddle",
+            "screen": "В луже рядом с шкафом вспыхивает свет, будто что‑то скользит.",
+            "dialogue": [],
+            "change": "Сигнализирует присутствие кого‑то рядом, повышая риск неожиданного нападения."
+          },
+          {
+            "at": 22,
+            "cue": "door_twitch",
+            "screen": "Дверца шкафа дергается изнутри, будто кто‑то пытается открыть её.",
+            "dialogue": [
+              {
+                "speaker": "radio_voice",
+                "line": "Беги, сейчас!"
+              }
+            ],
+            "change": "Угроза усиливается, требуется мгновенный выбор."
+          }
+        ],
+        "choices": [
+          {
+            "action": "open_cache",
+            "label": "Открыть шкаф",
+            "nextOpening": "Мара бросается открыть дверь, видит полупрозрачную фигуру, но не успевает разобрать детали.",
+            "lastingEffect": "Шкаф открыт, доступ к содержимому получен, но шум привлекает внимание."
+          },
+          {
+            "action": "retreat",
+            "label": "Отойти и скрыться",
+            "nextOpening": "Мара отступает к углу, прячась в тени, слышит, как дверь шкафа глухо закрывается.",
+            "lastingEffect": "Шкаф закрыт, Мара в безопасности, но потеряна возможность узнать, что внутри."
+          }
+        ]
+      }
+    },
+    {
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "fixture": "dead",
+      "ms": 2424,
+      "checks": {
+        "openingShowsPriorChoice": true,
+        "timelineOrderedBeforeChoice": true,
+        "lateEvent": true,
+        "distinctCues": true,
+        "largestGapSeconds": 8,
+        "dialogueWords": 2,
+        "twoDifferentActions": true
+      },
+      "scene": {
+        "title": "Тайный стук в затопленном переходе",
+        "beats": [
+          {
+            "at": 0,
+            "cue": "radio_dead",
+            "screen": "Мара нажимает кнопку рации; индикатор остаётся темным, динамик молчит.",
+            "dialogue": [],
+            "change": "Мара подтверждает, что рация без питания."
+          },
+          {
+            "at": 7,
+            "cue": "door_twitch",
+            "screen": "Закрытая дверца шкафа дрогнула изнутри, издавая короткий стук.",
+            "dialogue": [
+              {
+                "speaker": "mara",
+                "line": "Кто там?"
+              }
+            ],
+            "change": "Слышен внутренний стук, напоминающий их детскую игру."
+          },
+          {
+            "at": 14,
+            "cue": "movement_in_puddle",
+            "screen": "По луже рядом со шкафом проходит лёгкая рябь, будто кто‑то прошёл по воде.",
+            "dialogue": [],
+            "change": "Следы указывают, что кто‑то недавно прошёл рядом, возможно рядом с шкафом."
+          },
+          {
+            "at": 22,
+            "cue": "knock_inside",
+            "screen": "Стук изнутри шкафа ускоряется, становясь более настойчивым.",
+            "dialogue": [],
+            "change": "Скоро стук превратится в громкий удар, требуя решения."
+          }
+        ],
+        "choices": [
+          {
+            "action": "open_cache",
+            "label": "Открыть шкаф",
+            "nextOpening": "Мара открывает шкаф, обнаруживая темный силуэт, возможно Лёва.",
+            "lastingEffect": "Доступ к шкафу открыт, но шум привлекает внимание."
+          },
+          {
+            "action": "retreat",
+            "label": "Отойти и скрыться",
+            "nextOpening": "Мара уходит в тень, шкаф остаётся закрытым, стук затихает.",
+            "lastingEffect": "Мара сохраняет скрытность, но теряет шанс увидеть содержимое."
+          }
+        ]
+      }
+    },
+    {
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "fixture": "holdout",
+      "ms": 2582,
+      "checks": {
+        "openingShowsPriorChoice": true,
+        "timelineOrderedBeforeChoice": true,
+        "lateEvent": true,
+        "distinctCues": true,
+        "largestGapSeconds": 8,
+        "dialogueWords": 14,
+        "twoDifferentActions": true
+      },
+      "scene": {
+        "title": "Дилемма в движущемся вагоне",
+        "beats": [
+          {
+            "at": 0,
+            "cue": "show_cut_seal",
+            "screen": "Ира прижимает отрезанный кусок пломбы к оставшемуся следу на ящике, показывая несовпадение.",
+            "dialogue": [
+              {
+                "speaker": "ira",
+                "line": "Смотри, пломба не подделана"
+              }
+            ],
+            "change": "Ира подтверждает, что пломба была подрезана, вызывая подозрение у Семёна."
+          },
+          {
+            "at": 7,
+            "cue": "train_brakes",
+            "screen": "Вагон резко тормозит, ящик скользит по металлическому полу и останавливается у края.",
+            "dialogue": [],
+            "change": "Ящик смещён, открывается возможность быстро скрыть или открыть его."
+          },
+          {
+            "at": 14,
+            "cue": "label_peels",
+            "screen": "Отскользнувший ящик теряет край наклейки, под ним видна старинная маркировка «К‑19».",
+            "dialogue": [
+              {
+                "speaker": "semyon",
+                "line": "Это не то, что ты ищешь"
+              }
+            ],
+            "change": "Старый код указывает, что содержимое может быть подделкой."
+          },
+          {
+            "at": 22,
+            "cue": "semyon_blocks",
+            "screen": "Семён встаёт между Ирой и ящиком, руки на груди, не позволяя ей дотянуться.",
+            "dialogue": [
+              {
+                "speaker": "ira",
+                "line": "Я всё равно открою"
+              }
+            ],
+            "change": "Семён препятствует вскрытию, усиливая давление выбора."
+          }
+        ],
+        "choices": [
+          {
+            "action": "open_crate",
+            "label": "Вскрыть ящик сейчас",
+            "nextOpening": "Ира быстро открывает ящик, видит белый порошок и слышит скрежет замков.",
+            "lastingEffect": "Содержимое раскрыто, риск обнаружения повышен"
+          },
+          {
+            "action": "hide_crate",
+            "label": "Задвинуть ящик под нижние нары",
+            "nextOpening": "Ира прячет ящик под полку, проверяющие видят лишь пустую полку.",
+            "lastingEffect": "Ящик скрыт, шанс пройти досмотр повышен"
+          }
+        ]
+      }
+    },
+    {
+      "provider": "nvidia",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "fixture": "powered",
+      "ms": 3594,
+      "checks": {
+        "openingShowsPriorChoice": true,
+        "timelineOrderedBeforeChoice": true,
+        "lateEvent": true,
+        "distinctCues": true,
+        "largestGapSeconds": 8,
+        "dialogueWords": 10,
+        "twoDifferentActions": true
+      },
+      "scene": {
+        "title": "Три и два",
+        "beats": [
+          {
+            "at": 0,
+            "cue": "radio_power",
+            "screen": "Рация оживает. На индикаторе горит свет, из динамика доносится хриплый голос.",
+            "dialogue": [
+              {
+                "speaker": "radio_voice",
+                "line": "Мара, иди к ретранслятору."
+              }
+            ],
+            "change": "Рация включена и требует ухода от шкафа."
+          },
+          {
+            "at": 7,
+            "cue": "knock_inside",
+            "screen": "Из закрытого шкафа раздаётся стук: три удара, пауза, два удара.",
+            "dialogue": [
+              {
+                "speaker": "mara",
+                "line": "Лёва? Ответь мне."
+              }
+            ],
+            "change": "Из шкафа доносится детский сигнал, который знает только брат."
+          },
+          {
+            "at": 14,
+            "cue": "movement_in_puddle",
+            "screen": "По луже у шкафа проходит рябь, будто что-то прошло прямо под водой.",
+            "dialogue": [],
+            "change": "Что-то движется у шкафа, пока голос по рации ждёт решения."
+          },
+          {
+            "at": 22,
+            "cue": "door_twitch",
+            "screen": "Дверца шкафа дёргается изнутри. Кто-то пытается выбраться.",
+            "dialogue": [
+              {
+                "speaker": "radio_voice",
+                "line": "Уходи от шкафа."
+              }
+            ],
+            "change": "Голос требует оставить шкаф закрытым, пока внутри кто-то стучит."
+          }
+        ],
+        "choices": [
+          {
+            "action": "open_cache",
+            "label": "Открыть шкаф",
+            "nextOpening": "Дверца шкафа открывается, и из темноты выходит человек.",
+            "lastingEffect": "Мара узнаёт, кто на самом деле находился внутри шкафа."
+          },
+          {
+            "action": "follow_voice",
+            "label": "Пойти к ретранслятору",
+            "nextOpening": "Мара покидает шкаф и направляется к ретранслятору по указанию голоса.",
+            "lastingEffect": "Шкаф остаётся закрытым, а его тайна не раскрыта."
+          }
+        ]
+      }
+    },
+    {
+      "provider": "nvidia",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "fixture": "dead",
+      "ms": 3242,
+      "checks": {
+        "openingShowsPriorChoice": true,
+        "timelineOrderedBeforeChoice": true,
+        "lateEvent": true,
+        "distinctCues": true,
+        "largestGapSeconds": 8,
+        "dialogueWords": 5,
+        "twoDifferentActions": true
+      },
+      "scene": {
+        "title": "Три и два",
+        "beats": [
+          {
+            "at": 0,
+            "cue": "radio_dead",
+            "screen": "Мара нажимает кнопку рации. Индикатор остаётся тёмным, динамик молчит.",
+            "dialogue": [
+              {
+                "speaker": "mara",
+                "line": "Лёва, отвечай."
+              }
+            ],
+            "change": "Рация без питания не подаёт знака жизни."
+          },
+          {
+            "at": 7,
+            "cue": "knock_inside",
+            "screen": "Из шкафа раздаётся стук: три удара, потом два.",
+            "dialogue": [
+              {
+                "speaker": "mara",
+                "line": "Это ты, Лёва?"
+              }
+            ],
+            "change": "Шкаф отвечает детским сигналом брата."
+          },
+          {
+            "at": 14,
+            "cue": "door_twitch",
+            "screen": "Закрытая дверца дёргается изнутри.",
+            "dialogue": [],
+            "change": "Кто-то внутри шкафа пытается выбраться."
+          },
+          {
+            "at": 22,
+            "cue": "movement_in_puddle",
+            "screen": "По луже рядом со шкафом проходит рябь.",
+            "dialogue": [],
+            "change": "Что-то ещё движется у шкафа, не только за дверцей."
+          }
+        ],
+        "choices": [
+          {
+            "action": "open_cache",
+            "label": "Открыть шкаф",
+            "nextOpening": "Мара открывает дверцу шкафа и видит внутри тень и мокрые следы на полу.",
+            "lastingEffect": "Шкаф открыт, и то, что внутри, теперь знает о Маре."
+          },
+          {
+            "action": "retreat",
+            "label": "Отойти и скрыться",
+            "nextOpening": "Мара отходит к углу, и стук из шкафа стихает, пока она не видит, кто внутри.",
+            "lastingEffect": "Шкаф остаётся закрытым, и источник стука остаётся неизвестным."
+          }
+        ]
+      }
+    },
+    {
+      "provider": "nvidia",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "fixture": "holdout",
+      "ms": 3672,
+      "checks": {
+        "openingShowsPriorChoice": true,
+        "timelineOrderedBeforeChoice": true,
+        "lateEvent": true,
+        "distinctCues": true,
+        "largestGapSeconds": 8,
+        "dialogueWords": 11,
+        "twoDifferentActions": true
+      },
+      "scene": {
+        "title": "Пломба и ящик",
+        "beats": [
+          {
+            "at": 0,
+            "cue": "show_cut_seal",
+            "screen": "Ира прикладывает отрезанный кусок пломбы к остатку на ящике. Края сходятся.",
+            "dialogue": [
+              {
+                "speaker": "ira",
+                "line": "Пломба целая."
+              }
+            ],
+            "change": "Ира видит, что пломба была вскрыта и аккуратно восстановлена."
+          },
+          {
+            "at": 7,
+            "cue": "train_brakes",
+            "screen": "Вагон тормозит. Ящик сдвигается по полу к двери.",
+            "dialogue": [
+              {
+                "speaker": "semyon",
+                "line": "Скоро досмотр."
+              }
+            ],
+            "change": "Ящик переместился ближе к двери, где скоро появятся проверяющие."
+          },
+          {
+            "at": 14,
+            "cue": "label_peels",
+            "screen": "На сдвинувшемся ящике отклеивается край наклейки, из-под неё видна старая маркировка.",
+            "dialogue": [
+              {
+                "speaker": "ira",
+                "line": "Это не та наклейка."
+              }
+            ],
+            "change": "Ира замечает подделку или замену этикетки на ящике."
+          },
+          {
+            "at": 22,
+            "cue": "semyon_blocks",
+            "screen": "Семён встаёт между Ирой и ящиком, перекрывая доступ к нему.",
+            "dialogue": [
+              {
+                "speaker": "semyon",
+                "line": "Не трогай ящик."
+              }
+            ],
+            "change": "Семён физически блокирует ящик, отрезая Ире путь к содержимому."
+          }
+        ],
+        "choices": [
+          {
+            "action": "open_crate",
+            "label": "Вскрыть ящик сейчас",
+            "nextOpening": "Ира вскрывает ящик и видит содержимое до того, как дверь откроют снаружи.",
+            "lastingEffect": "Ира знает, настоящее ли лекарство внутри, но Семён узнал, что она вскрыла ящик без него."
+          },
+          {
+            "action": "hide_crate",
+            "label": "Задвинуть ящик под нары",
+            "nextOpening": "Ира задвигает ящик под нижние нары и встречает проверяющих с закрытым ящиком.",
+            "lastingEffect": "Ящик спрятан, но Ира так и не узнала, настоящее ли внутри лекарство."
+          }
+        ]
+      }
+    },
+    {
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "fixture": "powered",
+      "ms": 2600,
+      "checks": {
+        "openingShowsPriorChoice": true,
+        "timelineOrderedBeforeChoice": true,
+        "lateEvent": true,
+        "distinctCues": true,
+        "largestGapSeconds": 8,
+        "dialogueWords": 10,
+        "twoDifferentActions": true
+      },
+      "scene": {
+        "title": "Затопленный переход",
+        "beats": [
+          {
+            "at": 0,
+            "cue": "radio_power",
+            "screen": "Рация оживает, зеленый индикатор горит, из динамика слышен треск.",
+            "dialogue": [
+              {
+                "speaker": "radio_voice",
+                "line": "Иди к ретранслятору."
+              }
+            ],
+            "change": "Рация включена, голос требует уйти от шкафа."
+          },
+          {
+            "at": 7,
+            "cue": "approach_cache",
+            "screen": "Мара подходит вплотную к металлическому шкафу в луже.",
+            "dialogue": [
+              {
+                "speaker": "mara",
+                "line": "Ты где, Лёва?"
+              }
+            ],
+            "change": "Мара сокращает дистанцию до тайника, игнорируя приказ по рации."
+          },
+          {
+            "at": 14,
+            "cue": "knock_inside",
+            "screen": "Из закрытого металлического шкафа раздается три удара, затем два.",
+            "dialogue": [
+              {
+                "speaker": "radio_voice",
+                "line": "Брось это."
+              }
+            ],
+            "change": "Стук подтверждает детский пароль, но голос в рации запрещает проверять шкаф."
+          },
+          {
+            "at": 22,
+            "cue": "door_twitch",
+            "screen": "Закрытая дверца шкафа резко дёргается изнутри под ударом.",
+            "dialogue": [
+              {
+                "speaker": "mara",
+                "line": "Отвечай мне."
+              }
+            ],
+            "change": "Напряжение нарастает: шкаф рвется наружу, а рация требует идти к выходу."
+          }
+        ],
+        "choices": [
+          {
+            "action": "open_cache",
+            "label": "Открыть металлический шкаф",
+            "nextOpening": "Мара распахивает дверцу шкафа, сталкиваясь с тем, кто внутри.",
+            "lastingEffect": "Шкаф открыт, содержимое и личность стучавшего раскрыты."
+          },
+          {
+            "action": "follow_voice",
+            "label": "Идти к ретранслятору",
+            "nextOpening": "Мара отворачивается от шкафа и идет вглубь перехода по указанию рации.",
+            "lastingEffect": "Шкаф остается закрытым, Мара уходит к источнику связи."
+          }
+        ]
+      }
+    },
+    {
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "fixture": "dead",
+      "ms": 1989,
+      "checks": {
+        "openingShowsPriorChoice": true,
+        "timelineOrderedBeforeChoice": true,
+        "lateEvent": true,
+        "distinctCues": true,
+        "largestGapSeconds": 8,
+        "dialogueWords": 6,
+        "twoDifferentActions": true
+      },
+      "scene": {
+        "title": "Тихий переход",
+        "beats": [
+          {
+            "at": 0,
+            "cue": "radio_dead",
+            "screen": "Мара нажимает тангенту рации, но индикатор не загорается.",
+            "dialogue": [
+              {
+                "speaker": "mara",
+                "line": "Ответь мне сейчас."
+              }
+            ],
+            "change": "Рация без питания бесполезна, связи нет."
+          },
+          {
+            "at": 7,
+            "cue": "approach_cache",
+            "screen": "Мара подходит вплотную к закрытому металлическому шкафу.",
+            "dialogue": [
+              {
+                "speaker": "mara",
+                "line": "Лёва, ты здесь?"
+              }
+            ],
+            "change": "Мара сокращает дистанцию до тайника, обнаруживая свежие царапины на замке."
+          },
+          {
+            "at": 14,
+            "cue": "knock_inside",
+            "screen": "Из закрытого шкафа раздаётся отчётливый стук: три удара, пауза, два.",
+            "dialogue": [],
+            "change": "Детский сигнал подтверждает присутствие кого-то внутри."
+          },
+          {
+            "at": 22,
+            "cue": "door_twitch",
+            "screen": "Дверца шкафа резко дёргается изнутри, но замок держит.",
+            "dialogue": [],
+            "change": "Риск обнаружения растет, шкаф могут открыть изнутри или заблокировать."
+          }
+        ],
+        "choices": [
+          {
+            "action": "open_cache",
+            "label": "Открыть металлический шкаф",
+            "nextOpening": "Мара распахивает дверцу шкафа, сталкиваясь лицом к лицу с тем, кто внутри.",
+            "lastingEffect": "Шкаф открыт, скрытность потеряна."
+          },
+          {
+            "action": "retreat",
+            "label": "Отойти за угол",
+            "nextOpening": "Мара отступает в тень перехода, следя за шкафом из укрытия.",
+            "lastingEffect": "Мара сохраняет дистанцию, но упускает инициативу."
+          }
+        ]
+      }
+    },
+    {
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "fixture": "holdout",
+      "ms": 1800,
+      "checks": {
+        "openingShowsPriorChoice": true,
+        "timelineOrderedBeforeChoice": true,
+        "lateEvent": true,
+        "distinctCues": true,
+        "largestGapSeconds": 8,
+        "dialogueWords": 11,
+        "twoDifferentActions": true
+      },
+      "scene": {
+        "title": "Остановка в пути",
+        "beats": [
+          {
+            "at": 0,
+            "cue": "show_cut_seal",
+            "screen": "Ира прикладывает отрезанный кусок пломбы к остатку на ящике.",
+            "dialogue": [
+              {
+                "speaker": "ira",
+                "line": "Номер не совпадает."
+              }
+            ],
+            "change": "Ира понимает, что пломбу подменили."
+          },
+          {
+            "at": 7,
+            "cue": "train_brakes",
+            "screen": "Вагон тормозит, ящик сдвигается по полу.",
+            "dialogue": [
+              {
+                "speaker": "semyon",
+                "line": "Не смотри туда."
+              }
+            ],
+            "change": "Семён выдает себя страхом перед досмотром."
+          },
+          {
+            "at": 14,
+            "cue": "label_peels",
+            "screen": "На сдвинувшемся ящике отклеивается край наклейки, из-под него видна старая маркировка.",
+            "dialogue": [
+              {
+                "speaker": "ira",
+                "line": "Здесь другие цифры."
+              }
+            ],
+            "change": "Обнаружена старая маркировка адресата."
+          },
+          {
+            "at": 22,
+            "cue": "outside_knocks",
+            "screen": "Снаружи сильно стучат в дверь вагона.",
+            "dialogue": [
+              {
+                "speaker": "semyon",
+                "line": "Открывай быстрее."
+              }
+            ],
+            "change": "Внешняя угроза делает выбор немедленным."
+          }
+        ],
+        "choices": [
+          {
+            "action": "open_crate",
+            "label": "Вскрыть ящик сейчас",
+            "nextOpening": "Ира срывает крышку ящика до того, как открывается дверь вагона.",
+            "lastingEffect": "Содержимое ящика раскрыто для всех."
+          },
+          {
+            "action": "hide_crate",
+            "label": "Задвинуть ящик под нарУ",
+            "nextOpening": "Ящик исчезает под нижней полкой в тот момент, когда дверь начинает сдвигаться.",
+            "lastingEffect": "Ящик остается закрытым и спрятанным."
+          }
+        ]
+      }
+    }
+  ]
+}

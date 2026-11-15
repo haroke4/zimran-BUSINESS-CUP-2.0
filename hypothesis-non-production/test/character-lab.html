@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0c0f15" />
+    <link rel="icon" href="data:," />
+    <title>FRAMEBREAK — Character Lab</title>
+    <script type="module" src="/src/character-lab.js"></script>
+  </head>
+  <body>
+    <main>
+      <header class="lab-header">
+        <div class="title-block">
+          <span class="wordmark">FRAME<span>BREAK</span></span>
+          <h1>Character Lab</h1>
+          <p>Один скелет, библиотека клипов и скины поверх него.</p>
+        </div>
+        <div class="meta" aria-label="Состав лаборатории">
+          <span>1 rig</span>
+          <span>6 skins</span>
+          <span>12 clips</span>
+        </div>
+      </header>
+
+      <section class="player" aria-label="Сцена с персонажами">
+        <div class="stage" id="stage" role="img" aria-label="Шесть персонажей на сцене Character Bay"></div>
+        <div class="stage-bar">
+          <span id="selection-label">Вэйл — Капитан смены</span>
+          <span id="clip-label">idle · 4.6 с · цикл</span>
+        </div>
+      </section>
+
+      <section class="roster" id="roster" aria-label="Персонажи"></section>
+      <section class="clips" id="clips" aria-label="Анимации"></section>
+
+      <section class="toolbar" aria-label="Настройки">
+        <label class="switch"><input type="checkbox" id="debug" /> <span>Скелет</span></label>
+        <label class="switch"><input type="checkbox" id="sync" checked /> <span>Синхронно</span></label>
+        <label class="speed">
+          <span>Скорость</span>
+          <input type="range" id="speed" min="0.2" max="1.6" step="0.05" value="1" />
+          <output id="speed-value">1.0×</output>
+        </label>
+        <button class="ghost" id="flip" type="button">Повернуть →</button>
+        <button class="ghost" id="cycle" type="button">Следующий клип</button>
+      </section>
+
+      <p class="hint" id="hint" role="status">Спокойный. Видел хуже. · 1–6 — персонаж, ← → — клип, F — повернуть, D — скелет</p>
+    </main>
+  </body>
+</html>

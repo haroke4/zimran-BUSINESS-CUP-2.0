@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StoryFork · Генерация сцен</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/preview.mjs"></script>
+</head>
+<body>
+  <main>
+    <header><h1>StoryFork · Генерация сцен</h1></header>
+    <section class="workspace">
+      <div class="controls">
+        <form>
+          <label for="brief">Описание сцены</label>
+          <textarea id="brief" required maxlength="1200" rows="5">Центр города после дождя. Часовая башня, тёплые окна и влажный тротуар вдоль домов.</textarea>
+          <label for="screens">Ширина локации в экранах</label>
+          <input id="screens" type="number" min="1" max="8" step="1" value="3" required>
+          <div class="downloads">
+            <button type="submit">Сгенерировать сцену</button>
+            <button id="master-example" type="button">Проход из сценария</button>
+            <button id="dialogue-demo" type="button">Попробовать диалог вдвоём</button>
+          </div>
+          <p id="status" role="status"></p>
+        </form>
+        <section id="result" hidden>
+          <h2 id="title"></h2>
+          <p id="model"></p>
+          <p id="sound-description"></p>
+          <fieldset><legend>Слои сцены</legend><div id="layers"></div></fieldset>
+          <div class="downloads">
+            <button id="download-svg" type="button">Скачать панораму SVG</button>
+            <button id="download" type="button">Скачать JSON</button>
+          </div>
+        </section>
+      </div>
+      <div class="viewer">
+        <svg id="stage" viewBox="0 0 1600 900" role="img" aria-label="Превью сцены"></svg>
+        <section id="playback" hidden aria-label="Просмотр маршрута">
+          <button id="play" type="button">Пройти сцену</button>
+          <label for="timeline" class="sr-only">Время сцены</label>
+          <input id="timeline" type="range" min="0" max="0" step="0.05" value="0">
+          <output id="time" for="timeline"></output>
+        </section>
+        <div id="sound-controls" class="downloads" hidden>
+          <button id="mute" type="button" aria-pressed="false">Выключить звук</button>
+          <label for="volume">Громкость</label>
+          <input id="volume" type="range" min="0" max="1" step="0.05" value="0.65">
+          <span id="sound-status" role="status"></span>
+        </div>
+        <div class="camera-controls">
+          <label for="zoom">Приближение</label>
+          <input id="zoom" type="range" min="1" max="2.4" step="0.1" value="1.8">
+          <output id="zoom-value" for="zoom">1.8×</output>
+        </div>
+        <section id="dialogue-line" hidden aria-label="Текущая реплика">
+          <div aria-live="polite" aria-atomic="true"><strong id="speaker"></strong><p id="spoken-text"></p></div>
+          <progress id="speech-progress" max="1" value="0" aria-label="Ход реплики"></progress>
+        </section>
+        <details id="dialogue-controls" hidden>
+          <summary>Реплики · нажмите, чтобы перейти</summary>
+          <div id="dialogue-transcript"></div>
+        </details>
+        <p id="caption" hidden></p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

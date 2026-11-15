@@ -1,0 +1,7 @@
+# StoryFork
+
+`manifest.json` is the versioned catalog for this pack. Each record describes one asset with an ID, category, description, tags and compatible worlds. Look up an image via `files[state][lighting]`. Paths are relative to the manifest, and `default` is the key for an image without a lighting variant. Dimensions and authored anchors are under `states`. Where the source supplied a different anchor for a particular image, use `variantAnchors[state][lighting]` for that image.
+
+The catalog combines the original world, prop, lighting, overlay and occluder manifests. `door_metal_prop` identifies the separate foreground door art alongside the original `door_metal` structure. Entries marked `tagSource: "filename"` were cataloged from filenames and SVG viewBoxes. For those entries, a `mall_` or `ship_` prefix maps to `zombie_mall` or `ship_crisis` respectively. An empty `worlds` array means compatibility is unspecified. Their anchors are unspecified.
+
+The asset hypothesis's keyword selector can read the catalog's `assets` array by category, tags and description. Its current scene player uses the demo catalogs in `hypothesis-non-production/test/asset-hypotheses/assets`. Playing StoryFork scenes requires mapping these categories to scene layers and selecting the image for each state and lighting mode. An authored visual state such as `open` does not define an interaction or an allowed transition.

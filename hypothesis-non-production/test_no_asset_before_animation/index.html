@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StoryFork · До анимации объектов</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/preview.mjs"></script>
+</head>
+<body>
+  <main>
+    <header><h1>StoryFork · До анимации объектов</h1></header>
+    <section class="workspace">
+      <div class="controls">
+        <form>
+          <label for="brief">Описание сцены</label>
+          <textarea id="brief" required maxlength="1200" rows="5">Центр города после дождя. Часовая башня, тёплые окна и влажный тротуар вдоль домов.</textarea>
+          <label for="screens">Ширина локации в экранах</label>
+          <input id="screens" type="number" min="1" max="8" step="1" value="3" required>
+          <div class="downloads">
+            <button type="submit">Сгенерировать сцену</button>
+            <button id="master-example" type="button">Проход из сценария</button>
+          </div>
+          <p id="status" role="status"></p>
+        </form>
+        <section id="result" hidden>
+          <h2 id="title"></h2>
+          <p id="model"></p>
+          <fieldset><legend>Слои сцены</legend><div id="layers"></div></fieldset>
+          <div class="downloads">
+            <button id="download-svg" type="button">Скачать панораму SVG</button>
+            <button id="download" type="button">Скачать JSON</button>
+          </div>
+        </section>
+      </div>
+      <div class="viewer">
+        <svg id="stage" viewBox="0 0 1600 900" role="img" aria-label="Превью сцены"></svg>
+        <section id="playback" hidden aria-label="Просмотр маршрута">
+          <button id="play" type="button">Пройти сцену</button>
+          <label for="timeline" class="sr-only">Время сцены</label>
+          <input id="timeline" type="range" min="0" max="0" step="0.05" value="0">
+          <output id="time" for="timeline"></output>
+        </section>
+        <p id="caption" hidden></p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

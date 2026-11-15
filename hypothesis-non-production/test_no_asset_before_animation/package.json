@@ -1,0 +1,8 @@
+{
+  "name": "storyfork-before-object-animation",
+  "private": true,
+  "scripts": {
+    "start": "node --env-file-if-exists=../test/.env --env-file-if-exists=../test_no_asset/.env --env-file-if-exists=.env server.mjs",
+    "test": "node --test"
+  }
+}

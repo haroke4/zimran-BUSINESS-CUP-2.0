@@ -1,0 +1,185 @@
+{
+  "startedAt": "2026-11-15T02:56:46.719Z",
+  "prompt": "scene-v3",
+  "temperature": 0.55,
+  "results": [
+    {
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "fixture": "quiet",
+      "ms": 203,
+      "status": 429,
+      "error": "Model returned HTTP 429: {\"error\":{\"message\":\"Rate limit reached for model `openai/gpt-oss-120b` in organization `[ORGANIZATION]` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 3209, Requested 5252. Please try again in 3.4575s. Need more tokens? Upgrade to Dev Tier today at https://con"
+    },
+    {
+      "provider": "nvidia",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "fixture": "quiet",
+      "ms": 5287,
+      "checks": {
+        "openingShowsPriorChoice": true,
+        "timelineOrderedBeforeChoice": true,
+        "lateEvent": true,
+        "distinctCues": true,
+        "largestGapSeconds": 8,
+        "dialogueWords": 11,
+        "dialogueLines": 4,
+        "longestLineWords": 4,
+        "longestLabelWords": 4,
+        "twoDifferentActions": true
+      },
+      "scene": {
+        "title": "Письмо на столе",
+        "beats": [
+          {
+            "at": 0,
+            "cue": "put_letter_on_table",
+            "screen": "Даша кладёт закрытое письмо на стол между двумя чашками чая.",
+            "dialogue": [
+              {
+                "speaker": "dasha",
+                "line": "Оно от матери."
+              }
+            ],
+            "change": "Письмо теперь видно обоим, но остаётся запечатанным."
+          },
+          {
+            "at": 7,
+            "cue": "anton_reaches_withdraws",
+            "screen": "Антон тянется к конверту, но убирает руку, не дотрагиваясь.",
+            "dialogue": [
+              {
+                "speaker": "anton",
+                "line": "Я не буду читать."
+              }
+            ],
+            "change": "Антон отказывается от письма, но остаётся у стола."
+          },
+          {
+            "at": 14,
+            "cue": "anton_pushes_chair",
+            "screen": "Антон отодвигает стул и готовится встать, но задерживается рядом.",
+            "dialogue": [
+              {
+                "speaker": "dasha",
+                "line": "Останься ещё."
+              }
+            ],
+            "change": "Антон собирается уйти, но пока не сделал этого."
+          },
+          {
+            "at": 22,
+            "cue": "dasha_offers_tea",
+            "screen": "Даша ставит перед Антоном вторую чашку чая с подоконника.",
+            "dialogue": [
+              {
+                "speaker": "anton",
+                "line": "Спроси напрямую."
+              }
+            ],
+            "change": "Антон даёт Даше шанс начать разговор без обвинений."
+          }
+        ],
+        "choices": [
+          {
+            "action": "read_together",
+            "label": "Предложить открыть вместе",
+            "nextOpening": "Даша и Антон вскрывают конверт и начинают читать письмо матери.",
+            "lastingEffect": "Содержимое письма становится известным обоим и меняет контекст их ссоры."
+          },
+          {
+            "action": "talk_first",
+            "label": "Предложить поговорить о ссоре",
+            "nextOpening": "Даша пододвигает стул и начинает разговор о ссоре, пока письмо остаётся закрытым.",
+            "lastingEffect": "Антон остаётся за столом, и брат с сестрой имеют шанс примириться до чтения письма."
+          }
+        ]
+      }
+    },
+    {
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "fixture": "quiet",
+      "ms": 2772,
+      "checks": {
+        "openingShowsPriorChoice": true,
+        "timelineOrderedBeforeChoice": true,
+        "lateEvent": true,
+        "distinctCues": true,
+        "largestGapSeconds": 8,
+        "dialogueWords": 17,
+        "dialogueLines": 4,
+        "longestLineWords": 5,
+        "longestLabelWords": 4,
+        "twoDifferentActions": true
+      },
+      "scene": {
+        "title": "Закрытое письмо",
+        "beats": [
+          {
+            "at": 0,
+            "cue": "put_letter_on_table",
+            "screen": "Даша кладёт закрытое конверт на деревянный стол у окна.",
+            "dialogue": [
+              {
+                "speaker": "dasha",
+                "line": "Оно пришло сегодня утром."
+              }
+            ],
+            "change": "Конверт с именем матери лежит на столе, создавая точку притяжения."
+          },
+          {
+            "at": 7,
+            "cue": "anton_reaches_withdraws",
+            "screen": "Антон медленно тянет руку к конверту, но резко убирает пальцы.",
+            "dialogue": [
+              {
+                "speaker": "anton",
+                "line": "Зачем ты его принесла?"
+              }
+            ],
+            "change": "Антон признаёт существование письма, но демонстрирует страх перед его вскрытием."
+          },
+          {
+            "at": 14,
+            "cue": "dasha_turns_letter",
+            "screen": "Даша разворачивает конверт лицевой стороной к брату.",
+            "dialogue": [
+              {
+                "speaker": "dasha",
+                "line": "Посмотри на почтовый штемпель."
+              }
+            ],
+            "change": "Штемпель на конверте доказывает, что письмо было отправлено уже после смерти матери."
+          },
+          {
+            "at": 22,
+            "cue": "anton_pushes_chair",
+            "screen": "Антон сдвигает стул назад, но остается стоять рядом.",
+            "dialogue": [
+              {
+                "speaker": "anton",
+                "line": "Я не готов к этому."
+              }
+            ],
+            "change": "Напряжение достигает пика: Антон хочет уйти, но не может оторвать взгляд от письма."
+          }
+        ],
+        "choices": [
+          {
+            "action": "read_together",
+            "label": "Открыть письмо вместе сейчас",
+            "nextOpening": "Антон садится обратно за стол, и Даша надрывает бумажный край конверта.",
+            "lastingEffect": "Письмо открыто совместно, устраняя барьер недоверия между ними."
+          },
+          {
+            "action": "talk_first",
+            "label": "Поговорить перед вскрытием",
+            "nextOpening": "Антон останавливается у отодвинутого стула, ожидая объяснений от сестры.",
+            "lastingEffect": "Письмо остается закрытым, пока брат и сестра выясняют отношения."
+          }
+        ]
+      }
+    }
+  ]
+}

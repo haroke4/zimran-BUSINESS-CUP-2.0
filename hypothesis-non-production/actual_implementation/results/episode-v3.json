@@ -1,0 +1,1331 @@
+{
+  "startedAt": "2026-11-15T02:56:29.345Z",
+  "prompt": "episode-v3",
+  "temperature": 0.55,
+  "results": [
+    {
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "fixture": "crossing",
+      "ms": 8224,
+      "checks": {
+        "allBlockNumbersInOrder": true,
+        "uniqueFlags": true,
+        "distinctChoicesAndResults": true,
+        "delayedCallbacks": true,
+        "distinctCast": true,
+        "batteryChoiceWithinFirstFour": true,
+        "everyBatteryPathHasExactlyOneVariant": true,
+        "audibleRadioRequiresBattery": false,
+        "batteryHasExplicitDelayedPayoff": true,
+        "callbackSourcesAreShared": false
+      },
+      "episode": {
+        "title": "Тайный сигнал",
+        "dramaticQuestion": "Какой звук скрывает голос и где он приводит Мару к Лёве?",
+        "answer": "Голос использует семейный стук (три‑два) как код, чтобы Мару направить к ретранслятору, где Лёва стучит, сигнализируя о спасении.",
+        "cast": [
+          {
+            "character": "mara",
+            "want": "найти Лёву любой ценой",
+            "knowsAtStart": "мара слышит только шум дождя и свои мысли",
+            "speechPattern": "коротко, проверяя детали"
+          },
+          {
+            "character": "radio_voice",
+            "want": "заставить Мару добраться до ретранслятора",
+            "knowsAtStart": "знает имя Мары и кодовый стук её семьи",
+            "speechPattern": "чёткие, лаконичные команды"
+          }
+        ],
+        "blocks": [
+          {
+            "number": 1,
+            "location": "crossing",
+            "flag": "goal_established",
+            "variants": [
+              {
+                "when": "all",
+                "radio": "silent",
+                "anchor": "Мара замечает металлический шкаф и лежащую батарейку.",
+                "turn": "цель: найти Лёву, слыша семейный стук.",
+                "choices": [
+                  {
+                    "label": "Осмотреть шкаф",
+                    "value": "inspect_cabinet",
+                    "immediateResult": "Внутри — старый радиопередатчик, выключенный."
+                  },
+                  {
+                    "label": "Поднять батарейку",
+                    "value": "pick_battery",
+                    "immediateResult": "Батарейка в руке, готова к использованию."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 2,
+            "location": "crossing",
+            "flag": "battery_disposition",
+            "variants": [
+              {
+                "when": "all",
+                "radio": "silent",
+                "anchor": "Мара решает, что делать с батарейкой.",
+                "turn": "флаг battery_disposition установлен.",
+                "choices": [
+                  {
+                    "label": "Взять батарейку и вставить её в радиопередатчик",
+                    "value": "take",
+                    "immediateResult": "Радио включается, голос начинает говорить."
+                  },
+                  {
+                    "label": "Оставить батарейку в воде",
+                    "value": "leave",
+                    "immediateResult": "Радио остаётся мёртвым, голос не слышен."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 3,
+            "location": "crossing",
+            "flag": "post_battery",
+            "variants": [
+              {
+                "when": "battery_taken",
+                "radio": "audible",
+                "anchor": "Голос в эфире произносит: «Мара, три‑два. Иди к ретранслятору».",
+                "turn": "мара получает направление.",
+                "choices": [
+                  {
+                    "label": "Идти к ретранслятору",
+                    "value": "go_relay",
+                    "immediateResult": "Мара покидает переход, направляясь к старому ретранслятору."
+                  },
+                  {
+                    "label": "Остаться и исследовать шкаф дальше",
+                    "value": "search_cabinet",
+                    "immediateResult": "Находит карту местности, указывающую путь к ретранслятору."
+                  }
+                ]
+              },
+              {
+                "when": "battery_left",
+                "radio": "silent",
+                "anchor": "Тишина в эфире, но вдалеке слышен странный стук.",
+                "turn": "мара решает, куда идти без подсказок.",
+                "choices": [
+                  {
+                    "label": "Идти к ретранслятору по интуиции",
+                    "value": "go_relay",
+                    "immediateResult": "Мара пробирается через воду к ретранслятору."
+                  },
+                  {
+                    "label": "Остаться и искать другие подсказки",
+                    "value": "search_cabinet",
+                    "immediateResult": "Находит записку с цифрами 3‑2, напоминающую стук."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 4,
+            "location": "relay",
+            "flag": "relay_entry",
+            "variants": [
+              {
+                "when": "battery_taken",
+                "radio": "audible",
+                "anchor": "Радио из ретранслятора издаёт короткий сигнал, затем голос: «Три‑два, повторяй».",
+                "turn": "мара должна повторить стук, чтобы открыть панель.",
+                "choices": [
+                  {
+                    "label": "Сделать три удара, пауза, два удара",
+                    "value": "knock_code",
+                    "immediateResult": "Панель открывается, появляется световой индикатор."
+                  },
+                  {
+                    "label": "Игнорировать стук",
+                    "value": "ignore_code",
+                    "immediateResult": "Панель остаётся закрытой, голос молчит."
+                  }
+                ]
+              },
+              {
+                "when": "battery_left",
+                "radio": "silent",
+                "anchor": "Мара слышит тот же стук изнутри ретранслятора, но без голоса.",
+                "turn": "мара решает, как реагировать.",
+                "choices": [
+                  {
+                    "label": "Повторить стук",
+                    "value": "knock_code",
+                    "immediateResult": "Панель открывается, мерцает неоновая стрелка."
+                  },
+                  {
+                    "label": "Не стучать",
+                    "value": "ignore_code",
+                    "immediateResult": "Панель остаётся закрытой, свет не загорается."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 5,
+            "location": "relay",
+            "flag": "panel_state",
+            "variants": [
+              {
+                "when": "battery_taken",
+                "radio": "audible",
+                "anchor": "Внутри панели — провод с разъёмом и второй батарейный отсек.",
+                "turn": "мара может подключить батарейку или оставить её.",
+                "choices": [
+                  {
+                    "label": "Подключить батарейку к разъёму",
+                    "value": "connect_battery",
+                    "immediateResult": "Система оживает, голос шепчет: «Он рядом»."
+                  },
+                  {
+                    "label": "Оставить батарейку в отсеке",
+                    "value": "leave_battery",
+                    "immediateResult": "Система остаётся в спящем режиме."
+                  }
+                ]
+              },
+              {
+                "when": "battery_left",
+                "radio": "silent",
+                "anchor": "Внутри панели — пустой разъём, но на стене нарисован символ «3‑2».",
+                "turn": "мара может попытаться включить питание от собственного фонаря.",
+                "choices": [
+                  {
+                    "label": "Подключить фонарь к разъёму",
+                    "value": "connect_lantern",
+                    "immediateResult": "Система вспыхивает, голос появляется: «Слушай»."
+                  },
+                  {
+                    "label": "Не подключать ничего",
+                    "value": "ignore_power",
+                    "immediateResult": "Панель остаётся темной."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 6,
+            "location": "relay",
+            "flag": "voice_presence",
+            "variants": [
+              {
+                "when": "battery_taken",
+                "radio": "audible",
+                "anchor": "Голос сообщает: «Лёва стучит, ищи стук».",
+                "turn": "мара ищет источник стука.",
+                "choices": [
+                  {
+                    "label": "Идти к неоновой стрелке",
+                    "value": "follow_arrow",
+                    "immediateResult": "Стрелка указывает на скрытый люк."
+                  },
+                  {
+                    "label": "Остаться у панели",
+                    "value": "stay_panel",
+                    "immediateResult": "Слышен только собственный дыхание."
+                  }
+                ]
+              },
+              {
+                "when": "battery_left",
+                "radio": "audible",
+                "anchor": "Голос, появившийся после подключения фонаря, шепчет: «Он рядом, стук».",
+                "turn": "мара ищет стук.",
+                "choices": [
+                  {
+                    "label": "Идти к неоновой стрелке",
+                    "value": "follow_arrow",
+                    "immediateResult": "Люк открывается, слышен стук из глубины."
+                  },
+                  {
+                    "label": "Остаться у панели",
+                    "value": "stay_panel",
+                    "immediateResult": "Тишина, кроме капель."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 7,
+            "location": "relay",
+            "flag": "secret_latch",
+            "variants": [
+              {
+                "when": "battery_taken",
+                "radio": "audible",
+                "anchor": "Люк раскрыт, внизу темно, но слышен стук — три‑два.",
+                "turn": "мара может спуститься или вернуться.",
+                "choices": [
+                  {
+                    "label": "Спуститься в люк",
+                    "value": "descend",
+                    "immediateResult": "Мара попадает в подземный тоннель, где слышит повторяющийся стук."
+                  },
+                  {
+                    "label": "Вернуться к панели",
+                    "value": "return_panel",
+                    "immediateResult": "Панель гаснет, голос исчезает."
+                  }
+                ]
+              },
+              {
+                "when": "battery_left",
+                "radio": "audible",
+                "anchor": "Люк раскрыт, стук слышен так же — три‑два.",
+                "turn": "мара решает, спуститься или ждать.",
+                "choices": [
+                  {
+                    "label": "Спуститься в люк",
+                    "value": "descent",
+                    "immediateResult": "Тёмный туннель, стук усиливается."
+                  },
+                  {
+                    "label": "Остаться у люка",
+                    "value": "wait_latch",
+                    "immediateResult": "Стучит только вода."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 8,
+            "location": "trail",
+            "flag": "tunnel_exit",
+            "variants": [
+              {
+                "when": "battery_taken",
+                "radio": "audible",
+                "anchor": "Мара выходит в светлую тропу, фонарь в руке, слышит стук из кустов.",
+                "turn": "она должна решить, куда идти.",
+                "choices": [
+                  {
+                    "label": "Подойти к кустам",
+                    "value": "approach_bushes",
+                    "immediateResult": "Лёва появляется, стучит по камню, указывает путь к безопасному выходу."
+                  },
+                  {
+                    "label": "Идти дальше по тропе",
+                    "value": "continue_path",
+                    "immediateResult": "Тропа уводит в пустоту, стук исчезает."
+                  }
+                ]
+              },
+              {
+                "when": "battery_left",
+                "radio": "audible",
+                "anchor": "Мара выходит в ту же тропу, но без фонаря, слышит стук из темноты.",
+                "turn": "она выбирает действие.",
+                "choices": [
+                  {
+                    "label": "Подойти к темноте",
+                    "value": "approach_dark",
+                    "immediateResult": "Лёва, покрытый мокрой одеждой, стучит и протягивает руку."
+                  },
+                  {
+                    "label": "Уйти по тропе",
+                    "value": "run_away",
+                    "immediateResult": "Стучащий звук затихает, Мара остаётся одна."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 9,
+            "location": "trail",
+            "flag": "final_choice",
+            "variants": [
+              {
+                "when": "battery_taken",
+                "radio": "audible",
+                "anchor": "Лёва предлагает: «Следуй за мной».",
+                "turn": "мара решает следовать или отвергнуть.",
+                "choices": [
+                  {
+                    "label": "Следовать за Лёвой",
+                    "value": "follow_lev",
+                    "immediateResult": "Лёва ведёт к укрытию, радио передаёт успокаивающий сигнал."
+                  },
+                  {
+                    "label": "Отказаться и искать собственный путь",
+                    "value": "refuse_lev",
+                    "immediateResult": "Мара теряется, голос исчезает, стук прекращается."
+                  }
+                ]
+              },
+              {
+                "when": "battery_left",
+                "radio": "audible",
+                "anchor": "Лёва шепчет: «Только стук покажет путь».",
+                "turn": "мара выбирает слушать стук или идти сама.",
+                "choices": [
+                  {
+                    "label": "Слушать стук и идти за ним",
+                    "value": "listen_knock",
+                    "immediateResult": "Стук ведёт к безопасному укрытию, где Лёва уже ждёт."
+                  },
+                  {
+                    "label": "Идти в обратную сторону",
+                    "value": "go_back",
+                    "immediateResult": "Тропа заканчивается в темноте, стук исчезает."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 10,
+            "location": "trail",
+            "flag": "ending",
+            "variants": [
+              {
+                "when": "battery_taken",
+                "radio": "audible",
+                "anchor": "Кульминация: Мара и Лёва находятся в укрытии, радио передаёт их голоса вместе.",
+                "turn": "завершение эпизода без окончательного выбора.",
+                "choices": [
+                  {
+                    "label": "Объединить сигналы",
+                    "value": "merge_signal",
+                    "immediateResult": "Эпизод заканчивается, оставляя открытой возможность продолжения."
+                  },
+                  {
+                    "label": "Разделиться, каждый идёт своей дорогой",
+                    "value": "separate_paths",
+                    "immediateResult": "Эпизод завершается, но судьба Мары остаётся неизвестной."
+                  }
+                ]
+              },
+              {
+                "when": "battery_left",
+                "radio": "audible",
+                "anchor": "Кульминация: Мара слышит последний стук, Лёва исчезает в тени.",
+                "turn": "завершение эпизода без окончательного выбора.",
+                "choices": [
+                  {
+                    "label": "Остаться и ждать Лёву",
+                    "value": "wait_for_lev",
+                    "immediateResult": "Эпизод замыкается на надежде, но без ответа."
+                  },
+                  {
+                    "label": "Уйти в ночь",
+                    "value": "walk_into_night",
+                    "immediateResult": "Эпизод завершается, оставляя открытой тайну голоса."
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "callbacks": [
+          {
+            "fromBlock": 2,
+            "atBlock": 4,
+            "afterFirstChoice": "voice_gives_code",
+            "afterSecondChoice": "voice_silence"
+          },
+          {
+            "fromBlock": 5,
+            "atBlock": 7,
+            "afterFirstChoice": "latch_opens",
+            "afterSecondChoice": "latch_stays_closed"
+          }
+        ]
+      }
+    },
+    {
+      "provider": "nvidia",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "fixture": "crossing",
+      "ms": 26636,
+      "checks": {
+        "allBlockNumbersInOrder": true,
+        "uniqueFlags": true,
+        "distinctChoicesAndResults": true,
+        "delayedCallbacks": true,
+        "distinctCast": true,
+        "batteryChoiceWithinFirstFour": true,
+        "everyBatteryPathHasExactlyOneVariant": false,
+        "audibleRadioRequiresBattery": true,
+        "batteryHasExplicitDelayedPayoff": true,
+        "callbackSourcesAreShared": true
+      },
+      "episode": {
+        "title": "Переход под комендантским часом",
+        "dramaticQuestion": "Кто говорит в рации и зачем он ведёт Мару к ретранслятору?",
+        "answer": "Голос — оператор ретранслятора, который прячет Лёву в шкафу-панели и использует Мару, чтобы активировать оборудование под видом поиска.",
+        "cast": [
+          {
+            "character": "mara",
+            "want": "Найти брата Лёву по семейному стуку и вывести его из зоны.",
+            "knowsAtStart": "Лёва сигналит стуком три удара, потом два; на переходе есть рация и батарейка.",
+            "speechPattern": "Короткие фразы, проверяет детали, называет вещи по имени."
+          },
+          {
+            "character": "radio_voice",
+            "want": "Заставить Мару включить ретранслятор, оставив Лёву скрытым.",
+            "knowsAtStart": "Имя Мары, семейный стук, расположение шкафа на переходе.",
+            "speechPattern": "Узнаваемо короткие команды, скрывает свою роль, говорит только через рацию."
+          }
+        ],
+        "blocks": [
+          {
+            "number": 1,
+            "location": "crossing",
+            "flag": "crossing_arrival",
+            "variants": [
+              {
+                "when": "all",
+                "radio": "silent",
+                "anchor": "Мара стоит у затопленного перехода, в лужах отражается фонарь, у металлического шкафа открыта дверца, на полу лежит батарейка для рации.",
+                "turn": "Цель становится ясной: найти Лёву, использовать рацию и проверить шкаф.",
+                "choices": [
+                  {
+                    "label": "Осмотреть шкаф",
+                    "value": "inspect_cabinet",
+                    "immediateResult": "Мара заглядывает в шкаф: пустые полки, следы скрепёк на задней стенке, внутри сухо."
+                  },
+                  {
+                    "label": "Поднять батарейку",
+                    "value": "take_battery",
+                    "immediateResult": "Мара берёт батарейку, она тёплая, контакты чистые, теперь она в её руке."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 2,
+            "location": "crossing",
+            "flag": "battery_disposition",
+            "variants": [
+              {
+                "when": "all",
+                "radio": "silent",
+                "anchor": "Рация лежит рядом с батарейкой, экран тёмный, кнопки сухие, Мара решает, брать питание или нет.",
+                "turn": "Решение о батарейке определяет, услышит ли Мара голос в этом и следующих блоках.",
+                "choices": [
+                  {
+                    "label": "Взять батарейку",
+                    "value": "take",
+                    "immediateResult": "Мара вставляет батарейку в рацию, индикатор мигает зелёным, прибор готов к эфиру."
+                  },
+                  {
+                    "label": "Оставить батарейку",
+                    "value": "leave",
+                    "immediateResult": "Батарейка остаётся на полу, рация без питания, голос не прозвучит до конца эпизода."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 3,
+            "location": "crossing",
+            "flag": "crossing_radio_check",
+            "variants": [
+              {
+                "when": "battery_taken",
+                "radio": "audible",
+                "anchor": "Рация шипит, голос называет Мару по имени и просит проверить дверцу шкафа.",
+                "turn": "Голос в эфире начинает направлять Мару, подтверждая, что батарейка работает.",
+                "choices": [
+                  {
+                    "label": "Ответить в рацию",
+                    "value": "reply_radio",
+                    "immediateResult": "Мара говорит в микрофон, голос отвечает короткой командой проверить шкаф."
+                  },
+                  {
+                    "label": "Снова открыть шкаф",
+                    "value": "reopen_cabinet",
+                    "immediateResult": "Задняя стенка шкафа сдвинута, за ней видны провода и узкая ниша."
+                  }
+                ]
+              },
+              {
+                "when": "battery_left",
+                "radio": "silent",
+                "anchor": "Рация молчит, батарейка лежит на полу, дверца шкафа всё ещё открыта.",
+                "turn": "Без питания голос не слышен, Мара полагается только на свои глаза.",
+                "choices": [
+                  {
+                    "label": "Осмотреть шкаф без рации",
+                    "value": "inspect_cabinet_silent",
+                    "immediateResult": "Мара находит за шкафом метку «Ретранслятор» и стрелку, нарисованную мелом."
+                  },
+                  {
+                    "label": "Взять батарейку теперь",
+                    "value": "take_battery_late",
+                    "immediateResult": "Мара подбирает батарейку, но рация остаётся без сигнала до следующего источника питания."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 4,
+            "location": "relay",
+            "flag": "relay_arrival",
+            "variants": [
+              {
+                "when": "battery_taken",
+                "radio": "audible",
+                "anchor": "На ретрансляторе неоновая стрелка указывает на шкаф-панель, рация молчит, пока голос не даст команду.",
+                "turn": "Место действия меняется с перехода на ретранслятор, голос пока молчит.",
+                "choices": [
+                  {
+                    "label": "Вызвать голос в рацию",
+                    "value": "call_voice",
+                    "immediateResult": "Голос отвечает: «Подойди к шкафу, не открывай». Рация становится слышима."
+                  },
+                  {
+                    "label": "Подойти к шкафу без вызова",
+                    "value": "approach_cabinet_silent",
+                    "immediateResult": "Мара стоит у шкафа-панели, индикатор гаснет, рация молчит."
+                  }
+                ]
+              },
+              {
+                "when": "battery_left",
+                "radio": "silent",
+                "anchor": "На ретрансляторе неоновая стрелка указывает на шкаф-панель, вокруг тихо, рация без звука.",
+                "turn": "Без батарейки Мара добирается до ретранслятора своими силами, голос недоступен.",
+                "choices": [
+                  {
+                    "label": "Подойти к шкафу-панели",
+                    "value": "approach_panel",
+                    "immediateResult": "На панели есть защёлка и метка, совпадающая с мелом на переходе."
+                  },
+                  {
+                    "label": "Обойти ретранслятор",
+                    "value": "circle_relay",
+                    "immediateResult": "Мара находит второй вход к шкафу, но без рации не может проверить сигнал."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 5,
+            "location": "relay",
+            "flag": "relay_voice_delay",
+            "variants": [
+              {
+                "when": "battery_taken",
+                "radio": "audible",
+                "anchor": "Голос в рации говорит: «Три удара, потом два», и просит проверить индикатор шкафа.",
+                "turn": "Голос использует семейный стук, чтобы завоевать доверие, и направляет к индикатору.",
+                "choices": [
+                  {
+                    "label": "Послушать голос",
+                    "value": "obey_voice",
+                    "immediateResult": "Мара подносит рацию к шкафу, голос命令 нажать на индикатор."
+                  },
+                  {
+                    "label": "Ответить своим стуком",
+                    "value": "knock_back",
+                    "immediateResult": "Из шкафа доносится приглушённый отклик: три удара, потом два."
+                  }
+                ]
+              },
+              {
+                "when": "battery_left",
+                "radio": "silent",
+                "anchor": "Шкаф-панель стоит закрытым, индикатор тёмный, рация молчит, метка на стене видна.",
+                "turn": "Без голоса Мара сама решает, трогать ли индикатор.",
+                "choices": [
+                  {
+                    "label": "Нажать индикатор",
+                    "value": "press_indicator",
+                    "immediateResult": "Индикатор мигает красным, из-за панели слышен приглушённый стук."
+                  },
+                  {
+                    "label": "Послушать у шкафа",
+                    "value": "listen_panel",
+                    "immediateResult": "Мара слышит стук изнутри: три удара, потом два, но не видит источника."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 6,
+            "location": "relay",
+            "flag": "relay_knock_reply",
+            "variants": [
+              {
+                "when": "battery_taken",
+                "radio": "audible",
+                "anchor": "Голос в рации говорит: «Не открывай, пока не услышишь ответный стук», и замолкает.",
+                "turn": "Голос задерживает действие, создаёт ожидание и скрывает, что внутри шкафа.",
+                "choices": [
+                  {
+                    "label": "Подождать стука",
+                    "value": "wait_knock",
+                    "immediateResult": "Из шкафа раздаётся приглушённый стук: три удара, потом два."
+                  },
+                  {
+                    "label": "Открыть шкаф сейчас",
+                    "value": "open_panel_now",
+                    "immediateResult": "Дверца скрипит, внутри пусто, за панелью видны провода и ниша."
+                  }
+                ]
+              },
+              {
+                "when": "battery_left",
+                "radio": "silent",
+                "anchor": "Шкаф-панель закрыт, индикатор мигал красным, изнутри доносится приглушённый стук.",
+                "turn": "Без голоса Мара слышит только стук и должна решить, открывать ли панель.",
+                "choices": [
+                  {
+                    "label": "Открыть шкаф-панель",
+                    "value": "open_panel_silent",
+                    "immediateResult": "Дверца открыта, внутри пусто, за панелью видны провода и ниша."
+                  },
+                  {
+                    "label": "Продолжить слушать",
+                    "value": "keep_listening",
+                    "immediateResult": "Стук повторяется, но дверца остаётся закрытой, Мара остаётся у шкафа."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 7,
+            "location": "relay",
+            "flag": "relay_hidden_clue",
+            "variants": [
+              {
+                "when": "battery_taken",
+                "radio": "audible",
+                "anchor": "Голос в рации говорит: «За панелью есть то, что ищешь», и просит проверить нишу.",
+                "turn": "Голос намекает на скрытый объект, но не называет его прямо.",
+                "choices": [
+                  {
+                    "label": "Проверить нишу за панелью",
+                    "value": "check_niche",
+                    "immediateResult": "В нише лежит метка с именем Лёвы и ключ от шкафа."
+                  },
+                  {
+                    "label": "Спросить, кто говорит",
+                    "value": "ask_identity",
+                    "immediateResult": "Голос отвечает: «Тот, кто ведёт тебя к Лёве», и не раскрывает себя."
+                  }
+                ]
+              },
+              {
+                "when": "battery_left",
+                "radio": "silent",
+                "anchor": "За панелью видна ниша, внутри лежит метка с именем Лёвы, рация молчит.",
+                "turn": "Без голоса Мара сама находит метку и понимает, что Лёва был рядом.",
+                "choices": [
+                  {
+                    "label": "Взять метку",
+                    "value": "take_tag",
+                    "immediateResult": "Мара берёт метку с именем Лёвы, на обратной стороне нарисован шкаф."
+                  },
+                  {
+                    "label": "Оставить метку",
+                    "value": "leave_tag",
+                    "immediateResult": "Метка остаётся в нише, Мара запоминает её место и уходит от шкафа."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 8,
+            "location": "trail",
+            "flag": "trail_approach",
+            "variants": [
+              {
+                "when": "battery_taken",
+                "radio": "audible",
+                "anchor": "На тропе валун и фонарь, рация на поясе, голос говорит: «Иди к фонарю, не оборачивайся».",
+                "turn": "Голос направляет Мару с ретранслятора на тропу к фонарю.",
+                "choices": [
+                  {
+                    "label": "Пойти к фонарю",
+                    "value": "go_lantern",
+                    "immediateResult": "Мара подходит к фонарю, свет освещает валун, рация молчит."
+                  },
+                  {
+                    "label": "Остаться у валуна",
+                    "value": "stay_boulder",
+                    "immediateResult": "Мара стоит у валуна, фонарь вдалеке, голос в рации повторяет команду."
+                  }
+                ]
+              },
+              {
+                "when": "battery_left",
+                "radio": "silent",
+                "anchor": "На тропе валун и фонарь, рация без звука, Мара идёт по следам от ретранслятора.",
+                "turn": "Без голоса Мара сама выбирает направление к фонарю или валуну.",
+                "choices": [
+                  {
+                    "label": "Идти к фонарю",
+                    "value": "go_lantern_silent",
+                    "immediateResult": "Фонарь горит, у его основания лежит метка с именем Лёвы."
+                  },
+                  {
+                    "label": "Осмотреть валун",
+                    "value": "check_boulder",
+                    "immediateResult": "Под валуном найдена метка с именем Лёвы и стрелка к ретранслятору."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 9,
+            "location": "trail",
+            "flag": "trail_final_prep",
+            "variants": [
+              {
+                "when": "battery_taken",
+                "radio": "audible",
+                "anchor": "У фонаря рация шипит, голос говорит: «Последний выбор: открой шкаф или жди стук».",
+                "turn": "Голос ставит Мару перед финальным действием на тропе.",
+                "choices": [
+                  {
+                    "label": "Вернуться к шкафу",
+                    "value": "return_cabinet",
+                    "immediateResult": "Мара идёт обратно к ретранслятору, рация на поясе, голос ведёт её."
+                  },
+                  {
+                    "label": "Остаться у фонаря",
+                    "value": "stay_lantern",
+                    "immediateResult": "Мара ждёт у фонаря, голос обещает сигнал в рацию."
+                  }
+                ]
+              },
+              {
+                "when": "battery_left",
+                "radio": "silent",
+                "anchor": "У фонаря метка с именем Лёвы, рация молчит, валун позади, путь к ретранслятору открыт.",
+                "turn": "Без голоса Мара сама решает, возвращаться к шкафу или остаться на тропе.",
+                "choices": [
+                  {
+                    "label": "Вернуться к шкафу-панели",
+                    "value": "return_panel",
+                    "immediateResult": "Мара идёт обратно к ретранслятору, метка в кармане, рация молчит."
+                  },
+                  {
+                    "label": "Остаться у фонаря",
+                    "value": "stay_lantern_silent",
+                    "immediateResult": "Мара ждёт у фонаря, метка в руке, вокруг тишина."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 10,
+            "location": "relay",
+            "flag": "final_outcome",
+            "variants": [
+              {
+                "when": "battery_taken",
+                "radio": "audible",
+                "anchor": "Мара у шкафа-панели на ретрансляторе, рация в руке, голос говорит последнюю команду.",
+                "turn": "Финальное действие определяет, найдёт ли Мара Лёва или останется одна с голосом.",
+                "choices": [
+                  {
+                    "label": "Открыть шкаф-панель",
+                    "value": "open_final_panel",
+                    "immediateResult": "Дверца открыта, внутри Лёва, он отвечает стуком: три удара, потом два, голос замолкает."
+                  },
+                  {
+                    "label": "Следовать голосу в рацию",
+                    "value": "follow_voice",
+                    "immediateResult": "Мара слушает голос, шкаф остаётся закрытым, Лёва не выходит, голос продолжает давать команды."
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "callbacks": [
+          {
+            "fromBlock": 2,
+            "atBlock": 5,
+            "afterFirstChoice": "Батарейка взята, голос в рации слышен и использует семейный стук, чтобы направить Мару к индикатору.",
+            "afterSecondChoice": "Батарейка оставлена, голос не слышен, Мара сама нажимает индикатор и слышит приглушённый стук из шкафа."
+          },
+          {
+            "fromBlock": 1,
+            "atBlock": 7,
+            "afterFirstChoice": "Мара осмотрела шкаф на переходе, позже находит за панелью метку с именем Лёвы и ключ.",
+            "afterSecondChoice": "Мара подняла батарейку на переходе, позже голос в рации ведёт её к той же нише за панелью."
+          }
+        ]
+      }
+    },
+    {
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "fixture": "crossing",
+      "relaxedArrayBounds": true,
+      "ms": 9522,
+      "checks": {
+        "allBlockNumbersInOrder": true,
+        "uniqueFlags": true,
+        "distinctChoicesAndResults": true,
+        "delayedCallbacks": true,
+        "distinctCast": true,
+        "batteryChoiceWithinFirstFour": false,
+        "everyBatteryPathHasExactlyOneVariant": false,
+        "audibleRadioRequiresBattery": false,
+        "batteryHasExplicitDelayedPayoff": true,
+        "callbackSourcesAreShared": false
+      },
+      "episode": {
+        "title": "Сигнал",
+        "dramaticQuestion": "Где Лёва и кому верит Мара?",
+        "answer": "Голос в эфире ведёт Мару к ретранслятору, чтобы изолировать её от Лёвы, который прячется под землёй.",
+        "cast": [
+          {
+            "character": "mara",
+            "want": "Найти Лёву",
+            "knowsAtStart": "Семейный стук и приметы брата",
+            "speechPattern": "Короткие, прямые фразы"
+          },
+          {
+            "character": "radio_voice",
+            "want": "Увести Мару от перехода",
+            "knowsAtStart": "Имя Мары и коды патрулей",
+            "speechPattern": "Металлический тон, приказы"
+          }
+        ],
+        "blocks": [
+          {
+            "number": 1,
+            "location": "crossing",
+            "flag": "crossing_start",
+            "variants": [
+              {
+                "when": "all",
+                "radio": "silent",
+                "anchor": "Мара смотрит на рацию у металлического шкафа в луже.",
+                "turn": "Нужно решить, брать ли батарейку.",
+                "choices": [
+                  {
+                    "label": "Взять батарейку",
+                    "value": "take",
+                    "immediateResult": "Мара вставляет батарейку в рацию."
+                  },
+                  {
+                    "label": "Оставить батарейку",
+                    "value": "leave",
+                    "immediateResult": "Мара отходит от шкафа без рации."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 2,
+            "location": "crossing",
+            "flag": "battery_disposition",
+            "variants": [
+              {
+                "when": "battery_taken",
+                "radio": "audible",
+                "anchor": "Рация оживает, голос называет имя Мары.",
+                "turn": "Голос приказывает идти к ретранслятору.",
+                "choices": [
+                  {
+                    "label": "Идти на голос",
+                    "value": "to_relay",
+                    "immediateResult": "Мара спешит по мокрой дороге."
+                  },
+                  {
+                    "label": "Опровергнуть",
+                    "value": "question",
+                    "immediateResult": "Мара требует назвать имя Лёвы."
+                  }
+                ]
+              },
+              {
+                "when": "battery_left",
+                "radio": "silent",
+                "anchor": "Тишина у шкафа, рация мертва без питания.",
+                "turn": "Мара полагается только на слух.",
+                "choices": [
+                  {
+                    "label": "Идти по следам",
+                    "value": "tracks",
+                    "immediateResult": "Мара замечает следы сапог у лужи."
+                  },
+                  {
+                    "label": "Стучать в шкаф",
+                    "value": "knock",
+                    "immediateResult": "Мара бьет три раза, потом два."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 3,
+            "location": "relay",
+            "flag": "relay_approach",
+            "variants": [
+              {
+                "when": "battery_taken",
+                "radio": "audible",
+                "anchor": "Ретранслятор гудит, рация шипит короткую инструкцию.",
+                "turn": "Голос указывает на панель управления.",
+                "choices": [
+                  {
+                    "label": "Открыть панель",
+                    "value": "open_panel",
+                    "immediateResult": "Мара откидывает ржавую крышку."
+                  },
+                  {
+                    "label": "Отойти от шкафа",
+                    "value": "step_back",
+                    "immediateResult": "Мара проверяет периметр."
+                  }
+                ]
+              },
+              {
+                "when": "battery_left",
+                "radio": "silent",
+                "anchor": "Ретранслятор стоит в темноте, индикатор погас.",
+                "turn": "Мара осматривает неоновую стрелку.",
+                "choices": [
+                  {
+                    "label": "Включить тумблер",
+                    "value": "switch_on",
+                    "immediateResult": "Лампа на панели моргает желтым."
+                  },
+                  {
+                    "label": "Осмотреть валун",
+                    "value": "check_stone",
+                    "immediateResult": "Мара находит царапины от ножа."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 4,
+            "location": "trail",
+            "flag": "trail_check",
+            "variants": [
+              {
+                "when": "battery_taken",
+                "radio": "audible",
+                "anchor": "Рация передает звуки шагов впереди.",
+                "turn": "Голос торопит Мару к тропе.",
+                "choices": [
+                  {
+                    "label": "Бежать вперед",
+                    "value": "run_forward",
+                    "immediateResult": "Мара ускоряет шаг под фонарем."
+                  },
+                  {
+                    "label": "Светить под ноги",
+                    "value": "check_ground",
+                    "immediateResult": "Мара видит оброненную гильзу."
+                  }
+                ]
+              },
+              {
+                "when": "battery_left",
+                "radio": "silent",
+                "anchor": "Фонарь на тропе мигает, бросая длинные тени.",
+                "turn": "Тишину нарушает глухой стук из-под земли.",
+                "choices": [
+                  {
+                    "label": "Ответить стуком",
+                    "value": "reply_knock",
+                    "immediateResult": "Мара стучит три раза, затем два."
+                  },
+                  {
+                    "label": "Спрятаться за валун",
+                    "value": "hide",
+                    "immediateResult": "Мара ждет в тени камня."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 5,
+            "location": "relay",
+            "flag": "relay_mid",
+            "variants": [
+              {
+                "when": "battery_taken",
+                "radio": "audible",
+                "anchor": "Голос в рации называет старый адрес семьи.",
+                "turn": "Мара понимает, что её проверяют.",
+                "choices": [
+                  {
+                    "label": "Спросить про Лёву",
+                    "value": "ask_lev",
+                    "immediateResult": "Динамик выдает помехи и щелчок."
+                  },
+                  {
+                    "label": "Заглушить эфир",
+                    "value": "mute_radio",
+                    "immediateResult": "Мара убавляет громкость до щелчка."
+                  }
+                ]
+              },
+              {
+                "when": "battery_left",
+                "radio": "silent",
+                "anchor": "Старый ретранслятор скрипит на ветру.",
+                "turn": "На металле видна свежая царапина.",
+                "choices": [
+                  {
+                    "label": "Изучить метку",
+                    "value": "mark",
+                    "immediateResult": "Мара узнает почерк Лёвы."
+                  },
+                  {
+                    "label": "Пройти мимо",
+                    "value": "ignore_mark",
+                    "immediateResult": "Мара углубляется в чащу."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 6,
+            "location": "trail",
+            "flag": "trail_deep",
+            "variants": [
+              {
+                "when": "battery_taken",
+                "radio": "audible",
+                "anchor": "Рация ловит чужой обрывок фразы про облаву.",
+                "turn": "Нужно решить, верить ли предупреждению.",
+                "choices": [
+                  {
+                    "label": "Повернуть к вышке",
+                    "value": "to_tower",
+                    "immediateResult": "Мара меняет направление пути."
+                  },
+                  {
+                    "label": "Идти к оврагу",
+                    "value": "to_ravine",
+                    "immediateResult": "Мара спускается к сырой низине."
+                  }
+                ]
+              },
+              {
+                "when": "battery_left",
+                "radio": "silent",
+                "anchor": "Темная тропа приводит к развилке у фонаря.",
+                "turn": "Справа раздается слабый скрежет.",
+                "choices": [
+                  {
+                    "label": "Вправо к скрежету",
+                    "value": "right_path",
+                    "immediateResult": "Мара шагает к старому люку."
+                  },
+                  {
+                    "label": "Прямо по тропе",
+                    "value": "straight",
+                    "immediateResult": "Мара идет мимо темных кустов."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 7,
+            "location": "crossing",
+            "flag": "crossing_return",
+            "variants": [
+              {
+                "when": "battery_taken",
+                "radio": "audible",
+                "anchor": "Рация снова звучит у затопленного перехода.",
+                "turn": "Голос требует вернуться к шкафу.",
+                "choices": [
+                  {
+                    "label": "Подойти к шкафу",
+                    "value": "approach_box",
+                    "immediateResult": "Мара возвращается к металлической дверце."
+                  },
+                  {
+                    "label": "Обойти лужу",
+                    "value": "bypass",
+                    "immediateResult": "Мара ступает по узким камням."
+                  }
+                ]
+              },
+              {
+                "when": "battery_left",
+                "radio": "silent",
+                "anchor": "Переход встречает Мару тишиной и темной водой.",
+                "turn": "На ржавом шкафу виден кусок ткани.",
+                "choices": [
+                  {
+                    "label": "Взять ткань",
+                    "value": "take_cloth",
+                    "immediateResult": "Мара узнает куртку Лёвы."
+                  },
+                  {
+                    "label": "Оставить улику",
+                    "value": "leave_cloth",
+                    "immediateResult": "Мара отдергивает руку от шкафа."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 8,
+            "location": "relay",
+            "flag": "relay_final",
+            "variants": [
+              {
+                "when": "battery_taken",
+                "radio": "audible",
+                "anchor": "Индикатор ретранслятора горит зеленым светом.",
+                "turn": "Голос объявляет комендантский час закрытым.",
+                "choices": [
+                  {
+                    "label": "Ответить в эфир",
+                    "value": "answer_voice",
+                    "immediateResult": "Мара называет свой позывной."
+                  },
+                  {
+                    "label": "Выключить рацию",
+                    "value": "kill_power",
+                    "immediateResult": "Мара срывает батарейку с крепления."
+                  }
+                ]
+              },
+              {
+                "when": "battery_left",
+                "radio": "silent",
+                "anchor": "Ретранслятор молчит, панель заперта на замок.",
+                "turn": "Мара находит под крышкой записку.",
+                "choices": [
+                  {
+                    "label": "Прочесть записку",
+                    "value": "read_note",
+                    "immediateResult": "Мара разбирачивает почерк брата."
+                  },
+                  {
+                    "label": "Сжечь записку",
+                    "value": "burn_note",
+                    "immediateResult": "Мара уничтожает бумагу фонариком."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 9,
+            "location": "trail",
+            "flag": "trail_approach",
+            "variants": [
+              {
+                "when": "battery_taken",
+                "radio": "audible",
+                "anchor": "Рация шипит последние координаты от голоса.",
+                "turn": "Путь ведет к развилке у валуна.",
+                "choices": [
+                  {
+                    "label": "Идти по координатам",
+                    "value": "coords",
+                    "immediateResult": "Мара сворачивает к старой будке."
+                  },
+                  {
+                    "label": "Пойти наперекор",
+                    "value": "defy",
+                    "immediateResult": "Мара выбирает темную тропинку."
+                  }
+                ]
+              },
+              {
+                "when": "battery_left",
+                "radio": "silent",
+                "anchor": "Тропа выводит к старому фонарю у оврага.",
+                "turn": "Из-под земли раздается знакомый стук.",
+                "choices": [
+                  {
+                    "label": "Подать знак",
+                    "value": "signal",
+                    "immediateResult": "Мара отвечает тремя ударами."
+                  },
+                  {
+                    "label": "Спуститься молча",
+                    "value": "descend",
+                    "immediateResult": "Мара скользит по глине вниз."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 10,
+            "location": "trail",
+            "flag": "finale",
+            "variants": [
+              {
+                "when": "all",
+                "radio": "silent",
+                "anchor": "Мара стоит перед закрытым люком в конце тропы.",
+                "turn": "Время сделать окончательный выбор.",
+                "choices": [
+                  {
+                    "label": "Открыть люк",
+                    "value": "open_hatch",
+                    "immediateResult": "Мара тянет тяжелую железную ручку."
+                  },
+                  {
+                    "label": "Уйти от люка",
+                    "value": "walk_away",
+                    "immediateResult": "Мара разворачивается и уходит в темноту."
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "callbacks": [
+          {
+            "fromBlock": 2,
+            "atBlock": 7,
+            "afterFirstChoice": "Рация напоминает Маре про приказ у шкафа.",
+            "afterSecondChoice": "Мара вспоминает тишину у неоновой стрелки."
+          },
+          {
+            "fromBlock": 3,
+            "atBlock": 8,
+            "afterFirstChoice": "Панель ретранслятора остается открытой на обоих путях.",
+            "afterSecondChoice": "Индикатор ретранслятора подтверждает завершение обхода."
+          }
+        ]
+      }
+    }
+  ]
+}

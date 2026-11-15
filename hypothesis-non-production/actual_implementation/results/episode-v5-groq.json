@@ -1,0 +1,16 @@
+{
+  "startedAt": "2026-11-15T03:00:37.033Z",
+  "prompt": "episode-v5",
+  "temperature": 0.55,
+  "maxTokens": 3900,
+  "results": [
+    {
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "fixture": "crossing",
+      "ms": 255,
+      "status": 413,
+      "error": "Model returned HTTP 413: {\"error\":{\"message\":\"Request too large for model `openai/gpt-oss-120b` in organization `[ORGANIZATION]` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Requested 8507, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https"
+    }
+  ]
+}

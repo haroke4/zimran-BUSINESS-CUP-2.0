@@ -1,0 +1,226 @@
+{
+  "wet": {
+    "layout": {
+      "id": "rainy-crossing",
+      "placements": [
+        [
+          "sky",
+          "dusk_sky",
+          0
+        ],
+        [
+          "ground",
+          "street",
+          0
+        ],
+        [
+          "skyline-2",
+          "tall_tower",
+          2
+        ],
+        [
+          "skyline-0",
+          "row_houses",
+          0
+        ],
+        [
+          "skyline-1",
+          "row_houses",
+          1
+        ],
+        [
+          "skyline-3",
+          "row_houses",
+          3
+        ],
+        [
+          "skyline-4",
+          "row_houses",
+          4
+        ],
+        [
+          "puddle",
+          "rain_puddle",
+          3
+        ],
+        [
+          "cache",
+          "street_cabinet",
+          2
+        ],
+        [
+          "prop-0",
+          "street_lamp",
+          0
+        ],
+        [
+          "prop-1",
+          "street_lamp",
+          1
+        ],
+        [
+          "prop-5",
+          "direction_sign",
+          5
+        ]
+      ]
+    },
+    "story": {
+      "aim": "The scene takes place in a wet city at dusk, with a tower across from row houses. Mara, the protagonist, is inspecting a cache.",
+      "searchHint": "The cabinet opens, revealing a cache. Inside, there is a radio battery.",
+      "reveal": "battery",
+      "action": "open",
+      "choices": {
+        "take": "Mara takes the radio battery from the cache.",
+        "leave": "Mara leaves the cache without taking the radio battery."
+      }
+    },
+    "clip": "run"
+  },
+  "dry": {
+    "layout": {
+      "id": "quiet-block",
+      "placements": [
+        [
+          "sky",
+          "dusk_sky",
+          0
+        ],
+        [
+          "ground",
+          "street",
+          0
+        ],
+        [
+          "skyline-2",
+          "row_houses",
+          2
+        ],
+        [
+          "skyline-0",
+          "row_houses",
+          0
+        ],
+        [
+          "skyline-1",
+          "row_houses",
+          1
+        ],
+        [
+          "skyline-3",
+          "row_houses",
+          3
+        ],
+        [
+          "skyline-4",
+          "row_houses",
+          4
+        ],
+        [
+          "cache",
+          "street_cabinet",
+          2
+        ],
+        [
+          "prop-0",
+          "street_lamp",
+          0
+        ],
+        [
+          "prop-1",
+          "street_lamp",
+          1
+        ],
+        [
+          "prop-5",
+          "street_lamp",
+          5
+        ]
+      ]
+    },
+    "story": {
+      "aim": "The scene is set in a dry residential block after dusk. The low houses are illuminated by streetlights, and a sign on the corner of the block directs travelers to the nearest grocery store.",
+      "searchHint": "The cabinet is closed, and the surface is smooth and hard, typical of a residential block.",
+      "reveal": "battery",
+      "action": "open",
+      "choices": {
+        "take": "The actor can take the battery and leave the scene.",
+        "leave": "The actor can leave the scene without taking the battery."
+      }
+    },
+    "clip": "run"
+  },
+  "trail": {
+    "layout": {
+      "id": "pine-trail",
+      "placements": [
+        [
+          "sky",
+          "dusk_sky",
+          0
+        ],
+        [
+          "ground",
+          "dirt_trail",
+          0
+        ],
+        [
+          "skyline-2",
+          "pine_grove",
+          2
+        ],
+        [
+          "skyline-0",
+          "pine_grove",
+          0
+        ],
+        [
+          "skyline-1",
+          "pine_grove",
+          1
+        ],
+        [
+          "skyline-3",
+          "pine_grove",
+          3
+        ],
+        [
+          "skyline-4",
+          "pine_grove",
+          4
+        ],
+        [
+          "cache",
+          "street_cabinet",
+          2
+        ],
+        [
+          "prop-0",
+          "roadside_boulder",
+          0
+        ],
+        [
+          "prop-1",
+          "roadside_boulder",
+          1
+        ],
+        [
+          "prop-5",
+          "roadside_boulder",
+          5
+        ]
+      ]
+    },
+    "story": {
+      "aim": "The dirt trail is damp, with the pines casting long shadows. The boulders are rough, and the air is cool. Mara stops to inspect the cache.",
+      "searchHint": "The cabinet is closed, revealing a small cache of items. The cache is made of wood and has a lid that can be opened.",
+      "reveal": "battery",
+      "action": "open",
+      "choices": {
+        "take": "Mara takes the battery and moves on.",
+        "leave": "Mara leaves the battery behind and continues her journey."
+      }
+    },
+    "clip": "walk"
+  }
+}

@@ -1,0 +1,184 @@
+{
+  "startedAt": "2026-11-15T03:08:19.677Z",
+  "prompt": "scene-v4",
+  "temperature": 0.55,
+  "maxTokens": 2200,
+  "results": [
+    {
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "fixture": "long_corridor",
+      "ms": 2380,
+      "checks": {
+        "openingShowsPriorChoice": true,
+        "timelineOrderedBeforeChoice": true,
+        "lateEvent": true,
+        "distinctCues": true,
+        "largestGapSeconds": 8,
+        "dialogueWords": 5,
+        "dialogueLines": 2,
+        "longestLineWords": 3,
+        "longestLabelWords": 3,
+        "twoDifferentActions": true
+      },
+      "scene": {
+        "title": "Поиск в тишине",
+        "beats": [
+          {
+            "at": 0,
+            "cue": "walk_to_window",
+            "screen": "Мара выходит с лестницы и тихо идёт по служебному коридору к смотровому окну.",
+            "dialogue": [],
+            "change": "Мара начинает путь по коридору в сторону окна."
+          },
+          {
+            "at": 7,
+            "cue": "window_blackout",
+            "screen": "У смотрового окна Мара замечает, как за стеклом гаснет лампа.",
+            "dialogue": [
+              {
+                "speaker": "mara",
+                "line": "Кто здесь?"
+              }
+            ],
+            "change": "Погасшая лампа за окном создает риск обнаружения."
+          },
+          {
+            "at": 14,
+            "cue": "walk_to_gate",
+            "screen": "Мара проходит выступ стены. В поле зрения впервые появляются решётка и ниша рядом с ней.",
+            "dialogue": [],
+            "change": "Решётка и ниша становятся доступны для действий."
+          },
+          {
+            "at": 22,
+            "cue": "knock_at_gate",
+            "screen": "У закрытой решётки Мара слышит его семейный стук, а из-за погасшего окна доносятся шаги.",
+            "dialogue": [
+              {
+                "speaker": "mara",
+                "line": "Это ты, Лёва?"
+              }
+            ],
+            "change": "Стук подтверждает присутствие брата, но приближающиеся шаги требуют немедленного решения."
+          }
+        ],
+        "choices": [
+          {
+            "action": "lift_gate",
+            "label": "Поднять решётку",
+            "nextOpening": "Решётка поднимается со скрипом, открывая проход, но привлекая внимание дежурного.",
+            "lastingEffect": "Проход открыт, но поднятая тревога меняет условия поиска."
+          },
+          {
+            "action": "hide_in_alcove",
+            "label": "Скрыться в нише",
+            "nextOpening": "Мара прячется в тени ниши, пропускавая идущие шаги мимо себя.",
+            "lastingEffect": "Мара в безопасности, но решётка остается закрытой."
+          }
+        ]
+      },
+      "travel": [
+        {
+          "cue": "walk_to_window",
+          "from": "stairs",
+          "to": "window",
+          "departureAt": 0,
+          "arrivalAt": 6
+        },
+        {
+          "cue": "walk_to_gate",
+          "from": "window",
+          "to": "gate",
+          "departureAt": 14,
+          "arrivalAt": 21
+        }
+      ]
+    },
+    {
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "fixture": "quiet",
+      "ms": 2192,
+      "checks": {
+        "openingShowsPriorChoice": true,
+        "timelineOrderedBeforeChoice": true,
+        "lateEvent": true,
+        "distinctCues": true,
+        "largestGapSeconds": 8,
+        "dialogueWords": 12,
+        "dialogueLines": 4,
+        "longestLineWords": 3,
+        "longestLabelWords": 4,
+        "twoDifferentActions": true
+      },
+      "scene": {
+        "title": "Письмо матери",
+        "beats": [
+          {
+            "at": 0,
+            "cue": "put_letter_on_table",
+            "screen": "Даша кладёт закрытое письмо на стол у окна.",
+            "dialogue": [
+              {
+                "speaker": "dasha",
+                "line": "Оно от мамы."
+              }
+            ],
+            "change": "Письмо оказывается на столе между братом и сестрой."
+          },
+          {
+            "at": 7,
+            "cue": "dasha_offers_tea",
+            "screen": "Даша приносит с подоконника вторую чашку и ставит перед Антоном.",
+            "dialogue": [
+              {
+                "speaker": "anton",
+                "line": "Зачем ты принесла?"
+              }
+            ],
+            "change": "Антон видит горячий чай, но не спешит садиться."
+          },
+          {
+            "at": 14,
+            "cue": "anton_reaches_withdraws",
+            "screen": "Антон тянется к письму, но убирает руку до касания.",
+            "dialogue": [
+              {
+                "speaker": "dasha",
+                "line": "Открой со мной."
+              }
+            ],
+            "change": "Становится ясно, что Антон боится содержания конверта."
+          },
+          {
+            "at": 22,
+            "cue": "anton_pushes_chair",
+            "screen": "Антон отодвигает стул, собираясь встать, но остаётся рядом со столом.",
+            "dialogue": [
+              {
+                "speaker": "anton",
+                "line": "Сначала скажи правду."
+              }
+            ],
+            "change": "Конфликт обостряется, требуя немедленного выбора."
+          }
+        ],
+        "choices": [
+          {
+            "action": "read_together",
+            "label": "Прочитать письмо вместе сейчас",
+            "nextOpening": "Даша и Антон вместе вскрывают конверт на столе.",
+            "lastingEffect": "Письмо открыто совместно, устраняя недоверие."
+          },
+          {
+            "action": "talk_first",
+            "label": "Поговорить перед чтением письма",
+            "nextOpening": "Антон возвращается на стул для разговора о ссоре.",
+            "lastingEffect": "Разговор состоялся до того, как конверт был распечатан."
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "storyfork-test-no-asset",
+  "private": true,
+  "scripts": {
+    "start": "node --env-file-if-exists=../test/.env --env-file-if-exists=.env server.mjs",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@google/genai": "^3.3.0"
+  }
+}

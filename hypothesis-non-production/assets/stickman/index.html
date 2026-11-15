@@ -1,0 +1,889 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0a0d13" />
+    <link rel="icon" href="data:," />
+    <title>FRAMEBREAK — Stickman Lab</title>
+    <style>
+      :root {
+        --bg: #0a0d13;
+        --panel: #101620;
+        --panel-2: #0e131c;
+        --line: #1e2836;
+        --line-soft: #182130;
+        --text: #e8edf4;
+        --muted: #8a94a4;
+        --dim: #5f6b7c;
+        --accent: #ffb36d;
+        --accent-soft: rgba(255, 179, 109, 0.14);
+        --radius: 16px;
+        --mono: "SFMono-Regular", "JetBrains Mono", ui-monospace, monospace;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        background:
+          radial-gradient(1100px 540px at 50% -10%, rgba(38, 54, 78, 0.4), transparent 65%),
+          var(--bg);
+        color: var(--text);
+        font-family: "Geist", "Inter", system-ui, -apple-system, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      main {
+        width: min(1180px, 100% - 40px);
+        margin: 0 auto;
+        padding: 40px 0 64px;
+      }
+
+      .head {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: 26px;
+      }
+
+      .eyebrow {
+        font: 500 10px/1 var(--mono);
+        letter-spacing: 4px;
+        color: var(--dim);
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 10px 0 6px;
+        font-size: clamp(34px, 5vw, 54px);
+        line-height: 0.95;
+        letter-spacing: -0.035em;
+        font-weight: 650;
+      }
+
+      .head p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+        max-width: 46ch;
+      }
+
+      .stats {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+
+      .stats span {
+        padding: 7px 11px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        font: 500 10px/1 var(--mono);
+        letter-spacing: 1.4px;
+        text-transform: uppercase;
+        color: #96a1b1;
+        white-space: nowrap;
+      }
+
+      .stage {
+        position: relative;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        overflow: hidden;
+        background:
+          radial-gradient(ellipse 52% 44% at 50% 74%, var(--accent-soft), transparent 70%),
+          linear-gradient(180deg, #121a27 0%, #0b1018 62%, #090d14 100%);
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+      }
+
+      .stage::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(122, 148, 180, 0.07) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(122, 148, 180, 0.07) 1px, transparent 1px);
+        background-size: 54px 54px;
+        mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.85), transparent 72%);
+        pointer-events: none;
+      }
+
+      .stage-canvas {
+        position: relative;
+        height: clamp(330px, 44vw, 440px);
+        padding: 12px 0 0;
+      }
+
+      .stage-canvas svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
+      .stage-bar {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 14px 22px 16px;
+        border-top: 1px solid rgba(30, 40, 54, 0.8);
+        background: rgba(8, 12, 18, 0.55);
+        backdrop-filter: blur(6px);
+      }
+
+      .stage-bar strong {
+        font-size: 17px;
+        letter-spacing: -0.01em;
+      }
+
+      .stage-bar em {
+        margin-left: 10px;
+        font-style: normal;
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .stage-bar output {
+        font: 500 11px/1 var(--mono);
+        color: var(--accent);
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .controls {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+        margin: 16px 0 10px;
+      }
+
+      .skins {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 10px;
+        width: 100%;
+      }
+
+      .skin-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 11px;
+        padding: 9px 15px 9px 11px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--panel-2);
+        color: inherit;
+        font: inherit;
+        cursor: pointer;
+        transition: border-color 0.16s ease, background 0.16s ease, transform 0.16s ease;
+      }
+
+      .skin-card:hover {
+        border-color: #33465e;
+        background: #121a26;
+      }
+
+      .skin-card.is-active {
+        border-color: color-mix(in srgb, var(--accent) 60%, transparent);
+        background: linear-gradient(180deg, rgba(255, 179, 109, 0.09), transparent);
+      }
+
+      .swatches {
+        display: flex;
+      }
+
+      .swatches i {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: var(--swatch);
+        border: 2px solid var(--panel-2);
+        margin-left: -5px;
+      }
+
+      .swatches i:first-child { margin-left: 0; }
+
+      .skin-copy {
+        display: grid;
+        text-align: left;
+        line-height: 1.2;
+      }
+
+      .skin-copy strong { font-size: 13px; }
+      .skin-copy em { font-style: normal; font-size: 11px; color: var(--muted); }
+      .skin-copy { text-align: center; gap: 4px; }
+      .skin-portrait { width: 100%; height: 128px; display: block; }
+      .skin-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+      .tools {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      button.ghost {
+        padding: 8px 12px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--panel-2);
+        color: #c9d2de;
+        font: 500 12px/1 "Geist", "Inter", system-ui, sans-serif;
+        cursor: pointer;
+        transition: border-color 0.15s ease, color 0.15s ease;
+      }
+
+      button.ghost:hover {
+        border-color: #3a4e66;
+        color: #fff;
+      }
+
+      .range {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .range output {
+        min-width: 36px;
+        font: 500 11px/1 var(--mono);
+        color: #b9c3d0;
+        text-align: right;
+      }
+
+      input[type="range"] {
+        appearance: none;
+        height: 4px;
+        border-radius: 4px;
+        background: #263242;
+        outline: none;
+        accent-color: var(--accent);
+      }
+
+      input[type="range"]::-webkit-slider-thumb {
+        appearance: none;
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        background: var(--accent);
+        border: 2px solid #0b1018;
+        box-shadow: 0 0 0 1px rgba(255, 179, 109, 0.4);
+        cursor: pointer;
+      }
+
+      .toggle {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: var(--muted);
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .toggle input { accent-color: var(--accent); }
+
+      .scrub {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin: 0 2px 26px;
+      }
+
+      .scrub input { flex: 1; }
+
+      .scrub span {
+        min-width: 116px;
+        text-align: right;
+        font: 500 10px/1 var(--mono);
+        color: var(--dim);
+        letter-spacing: 0.6px;
+      }
+
+      .clip-group { margin-bottom: 20px; }
+
+      .clip-group h2 {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 0 0 10px;
+        font: 500 10px/1 var(--mono);
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--dim);
+      }
+
+      .clip-group h2::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--line-soft);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(146px, 1fr));
+        gap: 10px;
+      }
+
+      .tile {
+        padding: 6px 6px 9px;
+        border: 1px solid var(--line-soft);
+        border-radius: 14px;
+        background: var(--panel-2);
+        color: inherit;
+        font: inherit;
+        cursor: pointer;
+        overflow: hidden;
+        transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+      }
+
+      .tile:hover {
+        border-color: #33465e;
+        background: #121a26;
+        transform: translateY(-1px);
+      }
+
+      .tile.is-active {
+        border-color: color-mix(in srgb, var(--accent) 62%, transparent);
+        background: linear-gradient(180deg, rgba(255, 179, 109, 0.08), var(--panel-2));
+      }
+
+      .tile-svg { height: 138px; }
+      .tile-svg svg { width: 100%; height: 100%; display: block; }
+
+      .tile-label {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 2px 5px 0;
+      }
+
+      .tile-label strong {
+        font-size: 12px;
+        font-weight: 550;
+        color: #c9d3e0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .tile-label span {
+        font: 500 9px/1 var(--mono);
+        color: var(--dim);
+        letter-spacing: 0.4px;
+        white-space: nowrap;
+      }
+
+      .hint {
+        margin: 26px 0 0;
+        color: var(--dim);
+        font: 500 10px/1.7 var(--mono);
+        letter-spacing: 0.5px;
+      }
+
+      main {
+        width: min(1600px, 100% - 40px);
+        height: 100dvh;
+        padding: 24px 0;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .head { flex-shrink: 0; margin-bottom: 20px; }
+      h1 { font-size: 32px; }
+      .head p { max-width: none; font-size: 12px; }
+      .workspace {
+        display: grid;
+        grid-template-columns: minmax(300px, 0.85fr) minmax(0, 1.15fr);
+        gap: 20px;
+        flex: 1;
+        min-height: 0;
+      }
+      .preview-pane { display: flex; flex-direction: column; min-height: 0; min-width: 0; }
+      .preview-pane .stage { display: flex; flex-direction: column; flex: 1; min-height: 180px; }
+      .preview-pane .stage-canvas { flex: 1; height: auto; min-height: 0; }
+      .stage-bar { flex-shrink: 0; flex-wrap: wrap; padding: 14px 16px; gap: 8px; }
+      .controls { flex-shrink: 0; margin: 14px 0; }
+      .tools { gap: 10px 14px; }
+      .range input { width: 90px; }
+      .scrub { flex-shrink: 0; margin-bottom: 0; }
+      .hint { margin-top: 14px; flex-shrink: 0; font-size: 9px; letter-spacing: 0; }
+      .selection-pane {
+        display: grid;
+        grid-template-rows: minmax(0, 1fr) minmax(0, 1.2fr);
+        gap: 16px;
+        min-height: 0;
+        min-width: 0;
+      }
+      .picker {
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: rgba(14, 19, 28, 0.65);
+        overflow: hidden;
+      }
+      .picker-heading {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px 16px;
+        border-bottom: 1px solid var(--line-soft);
+        flex-shrink: 0;
+      }
+      .picker-heading h2 { font-size: 14px; margin: 0; font-weight: 550; }
+      .picker-heading span { font: 10px/1 var(--mono); color: var(--muted); }
+      .picker-scroll {
+        min-height: 0;
+        overflow-y: auto;
+        overscroll-behavior-y: contain;
+        scrollbar-width: thin;
+        scrollbar-color: #33465e transparent;
+        padding: 12px;
+      }
+      .picker-scroll:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
+      .skins { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 8px; }
+      .skin-card { padding: 6px; gap: 6px; min-width: 0; border-radius: 10px; }
+      .skin-portrait { height: 88px; }
+      .skin-copy strong { font-size: 12px; }
+      .skin-copy em { font-size: 10px; overflow-wrap: anywhere; }
+      .grid { grid-template-columns: repeat(auto-fill, minmax(108px, 1fr)); gap: 8px; }
+      .tile-svg { height: 90px; }
+      .tile-label { flex-wrap: wrap; gap: 4px; }
+      .tile-label strong { font-size: 11px; }
+      .clip-group:last-child { margin-bottom: 0; }
+
+      @media (max-width: 720px) {
+        main { width: calc(100% - 24px); height: auto; padding: 16px 0; }
+        .head { align-items: flex-start; flex-direction: column; gap: 12px; margin-bottom: 16px; }
+        .stats { justify-content: flex-start; }
+        .workspace { display: flex; flex-direction: column; gap: 16px; }
+        .preview-pane {
+          position: sticky;
+          top: 0;
+          z-index: 2;
+          padding: 8px 0 12px;
+          background: var(--bg);
+        }
+        .preview-pane .stage { flex: none; min-height: 0; }
+        .preview-pane .stage-canvas { flex: none; height: clamp(160px, 28dvh, 260px); }
+        .stage-bar { padding: 10px 12px; }
+        .stage-bar strong { font-size: 14px; }
+        .stage-bar em { font-size: 11px; }
+        .stage-bar output { font-size: 10px; }
+        .controls { margin: 10px 0; }
+        .tools { gap: 8px; }
+        .hint { margin: 0; }
+        .selection-pane { grid-template-rows: repeat(2, minmax(280px, 42dvh)); }
+        .skins { grid-template-columns: repeat(auto-fill, minmax(95px, 1fr)); }
+        .grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * { transition: none !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header class="head">
+        <div>
+          <span class="eyebrow">FRAMEBREAK / ASSETS</span>
+          <h1>Stickman Lab</h1>
+          <p>One rig, shared animations, reusable characters. Each skin defines proportions, colors, and details.</p>
+        </div>
+        <div class="stats">
+          <span>1 rig</span>
+          <span id="stat-skins">20 skins</span>
+          <span id="stat-clips">25 clips</span>
+        </div>
+      </header>
+
+      <div class="workspace">
+      <section class="preview-pane" aria-label="Preview and controls">
+      <section class="stage" aria-label="Stage">
+        <div class="stage-canvas" id="stage"></div>
+        <div class="stage-bar">
+          <div>
+            <strong id="stage-name">Kit</strong>
+            <em id="stage-role">Courier</em>
+          </div>
+          <output id="stage-clip">Idle · 4.60 s · loop</output>
+        </div>
+      </section>
+
+      <section class="controls">
+        <div class="tools">
+          <button class="ghost" id="play" type="button">Pause</button>
+          <label class="range">
+            <span>Speed</span>
+            <input type="range" id="speed" aria-label="Animation speed" min="0.2" max="1.6" step="0.05" value="1" />
+            <output id="speed-value">1.0×</output>
+          </label>
+          <label class="toggle"><input type="checkbox" id="skeleton" /> Skeleton</label>
+          <label class="toggle"><input type="checkbox" id="flip" /> Flip</label>
+          <button class="ghost" id="next" type="button">Next clip →</button>
+        </div>
+      </section>
+
+      <section class="scrub" aria-label="Timeline">
+        <input type="range" id="scrub" aria-label="Animation position" min="0" max="1000" value="0" />
+        <span id="scrub-time">0.00 / 4.60 s</span>
+      </section>
+
+      <p class="hint">1–9, 0 — first 10 · Shift + number — next 10 · ← → — clip · Space — pause · F — flip · D — skeleton</p>
+      </section>
+
+      <aside class="selection-pane" aria-label="Character and animation selection">
+        <section class="picker" aria-labelledby="cast-heading">
+          <header class="picker-heading">
+            <h2 id="cast-heading">Characters</h2>
+            <span>20 cast members</span>
+          </header>
+          <div class="picker-scroll" tabindex="0" role="region" aria-label="Character list">
+            <div class="skins" id="skins" aria-label="Skins"></div>
+          </div>
+        </section>
+        <section class="picker" aria-labelledby="animations-heading">
+          <header class="picker-heading">
+            <h2 id="animations-heading">Animations</h2>
+            <span>25 clips</span>
+          </header>
+          <div class="picker-scroll" id="clips" tabindex="0" role="region" aria-label="Animation list"></div>
+        </section>
+      </aside>
+      </div>
+    </main>
+
+    <script type="module">
+      import { clips, clipList, clipGroups } from "./animations.js?v=16";
+      import { skins } from "./skins.js?v=16";
+      import { resolvePose } from "./rig.js?v=12";
+      import { createFigure, colorToCss, resolvePalette, skeletonFor } from "./render.js?v=15";
+      import { StickmanAnimator } from "./animator.js?v=16";
+
+      const state = {
+        skinIndex: 0,
+        clipId: "idle",
+        time: 0,
+        clock: 0,
+        speed: 1,
+        paused: false,
+        skeleton: false,
+        facing: 1,
+      };
+
+      const stageElement = document.querySelector("#stage");
+      const skinsElement = document.querySelector("#skins");
+      const clipsElement = document.querySelector("#clips");
+      const nameElement = document.querySelector("#stage-name");
+      const roleElement = document.querySelector("#stage-role");
+      const clipElement = document.querySelector("#stage-clip");
+      const playButton = document.querySelector("#play");
+      const nextButton = document.querySelector("#next");
+      const speedInput = document.querySelector("#speed");
+      const speedValue = document.querySelector("#speed-value");
+      const skeletonInput = document.querySelector("#skeleton");
+      const flipInput = document.querySelector("#flip");
+      const scrubInput = document.querySelector("#scrub");
+      const scrubTime = document.querySelector("#scrub-time");
+      const hint = document.querySelector(".hint");
+
+      let heroFigure = null;
+      let animator = null;
+      let gridEntries = [];
+      let scrubbing = false;
+
+      const currentSkin = () => skins[state.skinIndex];
+      const currentClip = () => clips[state.clipId];
+
+      function buildSkins() {
+        skinsElement.replaceChildren();
+        for (const [index, skin] of skins.entries()) {
+          const palette = resolvePalette(skin);
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "skin-card";
+          button.dataset.skin = skin.id;
+          button.title = `${skin.tagline}\nRoles: ${skin.casting.join(", ")}`;
+          button.setAttribute("aria-label", `${skin.name} — ${skin.role}`);
+          const portrait = createFigure(skin);
+          portrait.svg.classList.add("skin-portrait");
+          portrait.svg.setAttribute("aria-hidden", "true");
+          const metrics = skeletonFor(skin);
+          portrait.update(resolvePose(clips.idle.pose(0, metrics), metrics), 0);
+          const swatches = [
+            palette.skin, palette.shirt, palette.accent,
+          ].map((color) => {
+            const dot = document.createElement("i");
+            dot.style.setProperty("--swatch", colorToCss(color));
+            return dot;
+          });
+          const copy = document.createElement("span");
+          copy.className = "skin-copy";
+          copy.innerHTML = `<strong>${skin.name}</strong><em>${skin.role}</em>`;
+          const swatchRow = document.createElement("span");
+          swatchRow.className = "swatches";
+          swatchRow.append(...swatches);
+          button.append(portrait.svg, copy, swatchRow);
+          button.addEventListener("click", () => selectSkin(index));
+          skinsElement.append(button);
+        }
+      }
+
+      function buildStage() {
+        const figure = createFigure(currentSkin());
+        heroFigure = figure;
+        stageElement.replaceChildren(figure.svg);
+      }
+
+      function buildGrid() {
+        clipsElement.replaceChildren();
+        gridEntries = [];
+        for (const group of clipGroups) {
+          const section = document.createElement("section");
+          section.className = "clip-group";
+          const heading = document.createElement("h2");
+          heading.textContent = group;
+          const grid = document.createElement("div");
+          grid.className = "grid";
+
+          for (const clip of clipList.filter((entry) => entry.group === group)) {
+            const tile = document.createElement("button");
+            tile.type = "button";
+            tile.className = "tile";
+            tile.dataset.clip = clip.id;
+            const figure = createFigure(currentSkin());
+            const svgWrap = document.createElement("div");
+            svgWrap.className = "tile-svg";
+            svgWrap.append(figure.svg);
+            const label = document.createElement("div");
+            label.className = "tile-label";
+            label.innerHTML = `<strong>${clip.label}</strong><span>${clip.duration.toFixed(2)} s</span>`;
+            tile.append(svgWrap, label);
+            tile.addEventListener("click", () => selectClip(clip.id));
+            grid.append(tile);
+            gridEntries.push({
+              clipId: clip.id,
+              figure,
+              offset: gridEntries.length * 0.37,
+            });
+          }
+
+          section.append(heading, grid);
+          clipsElement.append(section);
+        }
+      }
+
+      function syncActive() {
+        for (const card of skinsElement.querySelectorAll(".skin-card")) {
+          card.classList.toggle("is-active", card.dataset.skin === currentSkin().id);
+          card.setAttribute("aria-pressed", String(card.dataset.skin === currentSkin().id));
+        }
+        for (const tile of clipsElement.querySelectorAll(".tile")) {
+          tile.classList.toggle("is-active", tile.dataset.clip === state.clipId);
+        }
+      }
+
+      function updateLabels() {
+        const skin = currentSkin();
+        const clip = currentClip();
+        nameElement.textContent = skin.name;
+        roleElement.textContent = skin.role;
+        clipElement.textContent = `${clip.label} · ${clip.duration.toFixed(2)} s · ${clip.loop ? "loop" : "one-shot"}`;
+        hint.textContent = `${skin.tagline} · Roles: ${skin.casting.join(", ")}. · 1–9, 0 — first 10 · Shift + number — next 10 · ← → — clip · Space — pause · F — flip · D — skeleton`;
+        document.documentElement.style.setProperty("--accent", colorToCss(resolvePalette(skin).accent));
+        document.documentElement.style.setProperty(
+          "--accent-soft",
+          `color-mix(in srgb, ${colorToCss(resolvePalette(skin).accent)} 14%, transparent)`,
+        );
+      }
+
+      function selectSkin(index) {
+        if (index === state.skinIndex) return;
+        state.skinIndex = index;
+        animator = new StickmanAnimator(skeletonFor(currentSkin()), state.clipId);
+        animator.seek(state.time);
+        buildStage();
+        buildGrid();
+        syncActive();
+        updateLabels();
+      }
+
+      function selectClip(id) {
+        if (!clips[id]) return;
+        animator.play(id);
+        state.clipId = id;
+        state.time = 0;
+        setPaused(false);
+        syncActive();
+        updateLabels();
+      }
+
+      function cycleClip(direction) {
+        const index = clipList.findIndex((clip) => clip.id === state.clipId);
+        const next = (index + direction + clipList.length) % clipList.length;
+        selectClip(clipList[next].id);
+      }
+
+      function updatePlayButton() {
+        playButton.textContent = state.paused ? "Resume" : "Pause";
+      }
+
+      function setPaused(paused) {
+        state.paused = paused;
+        updatePlayButton();
+      }
+
+      function bindControls() {
+        playButton.addEventListener("click", () => {
+          const clip = currentClip();
+          if (state.paused && !clip.loop && state.time >= clip.duration - 0.0001) {
+            animator.play(state.clipId);
+            state.time = 0;
+          }
+          setPaused(!state.paused);
+        });
+        nextButton.addEventListener("click", () => cycleClip(1));
+
+        speedInput.addEventListener("input", () => {
+          state.speed = Number(speedInput.value);
+          speedValue.textContent = `${state.speed.toFixed(1)}×`;
+        });
+
+        skeletonInput.addEventListener("change", () => {
+          state.skeleton = skeletonInput.checked;
+        });
+
+        flipInput.addEventListener("change", () => {
+          state.facing = flipInput.checked ? -1 : 1;
+        });
+
+        scrubInput.addEventListener("pointerdown", () => {
+          scrubbing = true;
+        });
+
+        window.addEventListener("pointerup", () => {
+          scrubbing = false;
+        });
+
+        scrubInput.addEventListener("input", () => {
+          setPaused(true);
+          state.time = (Number(scrubInput.value) / 1000) * currentClip().duration;
+          animator.seek(state.time);
+        });
+
+        window.addEventListener("keydown", (event) => {
+          if (event.target instanceof HTMLInputElement || event.ctrlKey || event.metaKey || event.altKey) return;
+          const digit = /^Digit[0-9]$/.test(event.code) ? event.code.slice(-1) : event.key;
+          const skinShortcut = (digit === "0" ? 9 : Number(digit) - 1) + (event.shiftKey ? 10 : 0);
+          if (/^[0-9]$/.test(digit) && skinShortcut < skins.length) {
+            selectSkin(skinShortcut);
+            event.preventDefault();
+          } else if (event.key === "ArrowRight") {
+            cycleClip(1);
+            event.preventDefault();
+          } else if (event.key === "ArrowLeft") {
+            cycleClip(-1);
+            event.preventDefault();
+          } else if (event.key === " ") {
+            playButton.click();
+            event.preventDefault();
+          } else if (event.key.toLowerCase() === "f") {
+            state.facing *= -1;
+            flipInput.checked = state.facing === -1;
+          } else if (event.key.toLowerCase() === "d") {
+            state.skeleton = !state.skeleton;
+            skeletonInput.checked = state.skeleton;
+          }
+        });
+      }
+
+      function updateHero(dt) {
+        const clip = currentClip();
+        heroFigure.update(animator.pose, state.clock, {
+          facing: state.facing,
+          debug: state.skeleton,
+        });
+
+        if (!scrubbing) {
+          scrubInput.value = Math.round((state.time / clip.duration) * 1000);
+        }
+        scrubTime.textContent = `${state.time.toFixed(2)} / ${clip.duration.toFixed(2)} s`;
+        if (animator.transitioning) scrubTime.textContent = `Transition → ${clip.label}`;
+      }
+
+      function updateGrid() {
+        const metrics = skeletonFor(currentSkin());
+        for (const entry of gridEntries) {
+          const clip = clips[entry.clipId];
+          const time = (state.clock + entry.offset) % clip.duration;
+          const pose = resolvePose(clip.pose(time / clip.duration, metrics), metrics);
+          entry.figure.update(pose, state.clock, { facing: state.facing });
+        }
+      }
+
+      let lastFrame = performance.now();
+      let lastGrid = 0;
+
+      function tick(now) {
+        const dt = Math.min(0.05, (now - lastFrame) / 1000);
+        lastFrame = now;
+
+        if (!state.paused) {
+          state.clock += dt * state.speed;
+          animator.update(dt * state.speed);
+          state.time = animator.time;
+          if (animator.ended) setPaused(true);
+        }
+
+        updateHero(dt);
+
+        if (now - lastGrid > 32) {
+          updateGrid();
+          lastGrid = now;
+        }
+
+        requestAnimationFrame(tick);
+      }
+
+      buildSkins();
+      animator = new StickmanAnimator(skeletonFor(currentSkin()));
+      buildStage();
+      buildGrid();
+      bindControls();
+      syncActive();
+      updateLabels();
+      updatePlayButton();
+
+      document.querySelector("#stat-skins").textContent = `${skins.length} skins`;
+      document.querySelector("#stat-clips").textContent = `${clipList.length} clips`;
+
+      window.stickmanLab = {
+        state,
+        skins,
+        clips,
+        selectSkin,
+        selectClip,
+        cycleClip,
+        setPaused,
+      };
+
+      requestAnimationFrame(tick);
+    </script>
+  </body>
+</html>

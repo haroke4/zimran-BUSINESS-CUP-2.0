@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#111322">
+    <title>FRAMEBREAK — Live episode</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="./episode.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <a class="wordmark" href="/">FRAME<span>BREAK</span></a>
+        <nav>
+          <a href="./index.html">Asset lab</a>
+          <a href="/">Corridor demo</a>
+        </nav>
+      </header>
+
+      <section id="intro" class="intro" aria-labelledby="intro-title">
+        <p class="kicker">Live episode · Gemini</p>
+        <h1 id="intro-title">Five minutes at the crossing</h1>
+          <p class="lede">Задай идею истории — Gemini придумает сцены, текст, визуальные beat-ы и выборы. Всё хранится только в памяти для быстрого теста.</p>
+          <label class="premise-field" for="premise">Идея истории</label>
+          <textarea id="premise" rows="3" placeholder="Например: курьер находит сигнал из заброшенного метро и должен решить, кому доверять"></textarea>
+          <div class="intro-actions">
+          <button id="start" class="primary">Создать новую историю</button>
+          <span id="intro-status" role="status">Model: checking…</span>
+        </div>
+        <p id="resume-note" class="resume-note" hidden>
+          A saved episode was found.
+          <button id="resume">Resume</button>
+          <button id="restart">Start over</button>
+        </p>
+        <p class="fineprint">No build step or page reload is used between scenes. Canonical progress is stored by the local server and resumes after a browser restart. <a class="quiet" href="/storyfork/">Конструктор сцен StoryFork</a></p>
+      </section>
+
+      <section id="player" class="player" hidden aria-labelledby="scene-title">
+        <div class="engine-strip">
+          <span id="scene-meta">Scene 1/10 · revision 1</span>
+          <span id="model-meta">Gemini</span>
+          <span id="scene-status" role="status">Ready</span>
+          <button id="new-episode" class="quiet">New episode</button>
+        </div>
+
+        <div id="stage" class="stage" role="img" aria-label="Animated FRAMEBREAK scene"></div>
+        <div class="progress" aria-hidden="true"><div id="progress"></div></div>
+
+        <div class="playback">
+          <div class="copy">
+            <p id="scene-kicker" class="kicker"></p>
+            <h1 id="scene-title">Loading scene…</h1>
+            <p id="caption" aria-live="polite"></p>
+            <p id="consequence" class="consequence" hidden></p>
+            <p id="recovery" class="consequence" hidden></p>
+          </div>
+          <div class="choice-column">
+            <div id="choices" class="choices" hidden></div>
+            <p id="waiting" class="waiting" aria-live="polite">The scene is playing.</p>
+            <div id="generation" class="generation" hidden>
+              <span class="pulse"></span>
+              <span id="generation-text">Writing the next scene…</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="error" class="error-panel" hidden role="alert">
+          <div>
+            <strong id="error-title">The next scene could not be generated.</strong>
+            <p id="error-message"></p>
+          </div>
+          <div id="error-validation" class="validation"></div>
+          <div class="error-actions">
+            <button id="retry-choice" class="primary">Retry generation</button>
+            <button id="dismiss-error" class="quiet">Dismiss</button>
+          </div>
+        </div>
+
+        <section id="completion" class="completion" hidden aria-labelledby="completion-title">
+          <p class="kicker">Episode complete</p>
+          <h2 id="completion-title">The crossing is quiet.</h2>
+          <p id="completion-summary"></p>
+          <button id="replay" class="primary">Play again</button>
+        </section>
+
+        <details class="state-panel">
+          <summary>Canonical progress</summary>
+          <div id="facts" class="facts"></div>
+          <pre id="state-json"></pre>
+        </details>
+      </section>
+
+      <footer class="footer">
+        <button id="perf-toggle" class="quiet">Performance details</button>
+        <pre id="perf" hidden></pre>
+      </footer>
+    </main>
+    <script type="module" src="./episode.mjs"></script>
+  </body>
+</html>

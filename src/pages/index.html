@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#141414">
+  <meta name="description" content="AI turns your idea into an animated series. Choose what the characters do and change what happens next. Try the StoryFork demo.">
+  <title>StoryFork — Your idea. Your next move.</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/static/landing.css">
+  <script type="module" src="/static/landing.mjs"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="nav shell">
+    <a class="wordmark" href="/" aria-label="StoryFork home"><svg viewBox="0 0 28 32" aria-hidden="true"><path d="M14 30V15L4 5m10 10L24 5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="4" cy="5" r="3.5" fill="#e53940"/><circle cx="24" cy="5" r="3.5" fill="#e53940"/></svg>StoryFork</a>
+    <nav aria-label="Main navigation"><a href="#starters">Story starters</a><a href="/app">Open library <span aria-hidden="true">↗</span></a></nav>
+  </header>
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="poster-wall" id="poster-wall" aria-hidden="true"></div>
+      <div class="hero-shade"></div>
+      <div class="hero-content shell">
+        <p class="eyebrow">AI-generated. Animated. Interactive.</p>
+        <h1 id="hero-title">Your choices<br>change the story.</h1>
+        <p class="intro">AI turns your idea into an animated series.<br>You choose what the characters do next.</p>
+        <div class="hero-actions"><button class="button primary" id="play-demo" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m5 3 8 5-8 5Z" fill="currentColor"/></svg>Play demo</button><a class="button secondary" href="#create">Create a series</a></div>
+        <p class="hero-note">No account needed.</p>
+      </div>
+    </section>
+    <dialog class="video-modal" id="watch" aria-labelledby="demo-title">
+      <div class="video-heading"><div><p class="eyebrow">Inside a StoryFork scene</p><h2 id="demo-title">A signal in the woods.</h2></div><button id="close-demo" class="close-demo" type="button" aria-label="Close video demo" autofocus>Close ×</button></div>
+      <div class="video-player">
+        <video id="landing-video" controls playsinline preload="none" poster="/static/demo/forest-dialogue-poster.jpg?v=2" aria-label="Mara and the ranger: an animated dialogue scene" aria-describedby="video-note">
+          <source src="/static/demo/forest-dialogue.mp4?v=2" type="video/mp4">
+          <track kind="subtitles" src="/static/demo/forest-dialogue.en.vtt" srclang="en" label="English" default>
+          <track kind="subtitles" src="/static/demo/forest-dialogue.ru.vtt" srclang="ru" label="Русский">
+          Your browser cannot play this video. <a href="/static/demo/forest-dialogue.mp4?v=2">Download the demo</a>.
+        </video>
+        <p class="video-error" id="video-error" role="status" hidden>Couldn’t load the clip. <a href="/static/demo/forest-dialogue.mp4?v=2">Open the video directly</a>.</p>
+      </div>
+      <div class="video-footer"><p id="video-note" class="production-credit"><strong>Made entirely in StoryFork.</strong><span>No external AI tools were used to create the assets.</span></p><a class="button secondary" href="/app?demo=1">Try making a choice <span aria-hidden="true">→</span></a></div>
+    </dialog>
+    <section class="starters shell" id="starters" aria-labelledby="starters-title">
+      <div class="row-heading"><h2 id="starters-title">Pick a starting point</h2><span>Or write your own.</span></div>
+      <div class="poster-row">
+        <button class="story-card mystery" type="button" data-genre="mystery" data-character="roxy"><span class="card-art" aria-hidden="true"></span><span class="card-genre">Mystery</span><strong>The last signal</strong><span class="card-action">Make it yours +</span></button>
+        <button class="story-card romance" type="button" data-genre="romance" data-character="mika"><span class="card-art" aria-hidden="true"></span><span class="card-genre">Romance</span><strong>Almost us</strong><span class="card-action">Make it yours +</span></button>
+        <button class="story-card horror" type="button" data-genre="horror" data-character="vera"><span class="card-art" aria-hidden="true"></span><span class="card-genre">Horror</span><strong>Room 04</strong><span class="card-action">Make it yours +</span></button>
+        <button class="story-card scifi" type="button" data-genre="scifi" data-character="nova"><span class="card-art" aria-hidden="true"></span><span class="card-genre">Sci-fi</span><strong>No return</strong><span class="card-action">Make it yours +</span></button>
+        <button class="story-card surprise" type="button" data-genre="surprise" data-character="kit"><span class="card-art" aria-hidden="true"></span><span class="card-genre">Your call</span><strong>Surprise me</strong><span class="card-action">Make it yours +</span></button>
+      </div>
+    </section>
+    <section class="create shell" id="create" aria-labelledby="create-title">
+      <div class="create-copy"><h2 id="create-title">What’s your series about?</h2></div>
+      <form id="story-form" class="composer">
+        <label for="story-idea">Your premise</label>
+        <textarea id="story-idea" name="premise" rows="2" maxlength="600" required placeholder="A night train stops inside a tunnel. Someone knocks from an empty carriage." aria-describedby="creation-note idea-status"></textarea>
+        <button class="button primary create-button" type="submit">Create series <span aria-hidden="true">→</span></button>
+        <p class="form-note" id="creation-note">Your story is generated on the server. No account needed.</p>
+        <p id="idea-status" class="form-status" role="status"></p>
+      </form>
+    </section>
+  </main>
+  <footer class="footer shell"><a class="wordmark" href="#main">StoryFork</a><span>Your idea. Your next move.</span><a href="https://businesscup.zimran.io/" target="_blank" rel="noopener noreferrer">Built at Business Cup 2.0</a></footer>
+</body>
+</html>

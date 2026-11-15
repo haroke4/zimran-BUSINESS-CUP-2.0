@@ -1,0 +1,10 @@
+[
+  {"id":"dusk_sky","category":"sky","tags":["night","dusk"],"description":"Violet twilight with a peach moon","file":"sky.svg","layer":"sky","size":[960,540]},
+  {"id":"street","style":"urban","category":"ground","tags":["urban","city","street"],"description":"Slate pavement and sidewalk","file":"ground.svg","layer":"ground","size":[960,142]},
+  {"id":"tall_tower","style":"urban","category":"building","tags":["urban","city","tall","single","industrial"],"description":"One tall industrial tower with lit windows","file":"tower.svg","layer":"skyline","size":[174,240]},
+  {"id":"row_houses","style":"urban","category":"building","tags":["urban","city","low","multiple","residential"],"description":"Three attached low houses with warm windows","file":"houses.svg","layer":"skyline","size":[230,130]},
+  {"id":"rain_puddle","category":"surface","tags":["wet","rain","puddle","reflection"],"description":"Wet pavement reflecting violet light","file":"puddle.svg","layer":"surface","size":[174,42]},
+  {"id":"street_cabinet","category":"prop","tags":["urban","cabinet","storage"],"description":"Metal cabinet with a hinged door","capabilities":["openable"],"file":"cabinet.svg","overlay":"cabinet-door.svg","layer":"prop","size":[92,114],"anchors":{"approach":[-56,-12],"handle":[-17,-53]},"defaultState":"closed","states":{"closed":1,"open":0.12},"transitions":[{"action":"open","from":"closed","to":"open","ms":560},{"action":"close","from":"open","to":"closed","ms":560}]},
+  {"id":"street_lamp","style":"urban","category":"detail","tags":["urban","light","warm"],"description":"Tall streetlight with an amber glow","file":"lamp.svg","layer":"prop","size":[172,244]},
+  {"id":"direction_sign","style":"urban","category":"detail","tags":["urban","sign","neon"],"description":"Neon arrow on a street sign","file":"sign.svg","layer":"prop","size":[132,144]}
+]

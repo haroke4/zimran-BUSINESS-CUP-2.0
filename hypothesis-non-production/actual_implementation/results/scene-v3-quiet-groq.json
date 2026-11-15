@@ -1,0 +1,88 @@
+{
+  "startedAt": "2026-11-15T02:57:22.929Z",
+  "prompt": "scene-v3",
+  "temperature": 0.55,
+  "maxTokens": 2200,
+  "results": [
+    {
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "fixture": "quiet",
+      "ms": 2430,
+      "checks": {
+        "openingShowsPriorChoice": true,
+        "timelineOrderedBeforeChoice": true,
+        "lateEvent": true,
+        "distinctCues": true,
+        "largestGapSeconds": 8,
+        "dialogueWords": 13,
+        "dialogueLines": 3,
+        "longestLineWords": 5,
+        "longestLabelWords": 4,
+        "twoDifferentActions": true
+      },
+      "scene": {
+        "title": "Тишина над письмом",
+        "beats": [
+          {
+            "at": 0,
+            "cue": "put_letter_on_table",
+            "screen": "Даша аккуратно кладёт закрытое письмо на стол у окна.",
+            "dialogue": [],
+            "change": "Письмо теперь видно, но остаётся закрытым, создавая визуальный фокус."
+          },
+          {
+            "at": 7,
+            "cue": "anton_reaches_withdraws",
+            "screen": "Антон тянется к письму, но резко убирает руку, не касаясь его.",
+            "dialogue": [
+              {
+                "speaker": "anton",
+                "line": "Я не хочу спешить."
+              }
+            ],
+            "change": "Антон показывает нерешительность, напряжение усиливается."
+          },
+          {
+            "at": 14,
+            "cue": "dasha_offers_tea",
+            "screen": "Даша берёт вторую чашку с подоконника и ставит её перед Антоном.",
+            "dialogue": [
+              {
+                "speaker": "dasha",
+                "line": "Возьми чай, пока решаем."
+              }
+            ],
+            "change": "Тепло чая успокаивает Антона, появляется возможность для разговора."
+          },
+          {
+            "at": 22,
+            "cue": "anton_pauses_at_table",
+            "screen": "Антон задерживается у отодвинутого стула, глядя на Дашу, ожидая её реакции.",
+            "dialogue": [
+              {
+                "speaker": "anton",
+                "line": "Скажи, что ты хочешь услышать."
+              }
+            ],
+            "change": "Наступает решающий момент: Даша может предложить открыть письмо вместе или сначала обсудить ссору."
+          }
+        ],
+        "choices": [
+          {
+            "action": "read_together",
+            "label": "Открыть письмо вместе",
+            "nextOpening": "Письмо раскрывается, показывая рукописный текст матери.",
+            "lastingEffect": "Содержание письма будет известно, но эмоциональное напряжение смягчится."
+          },
+          {
+            "action": "talk_first",
+            "label": "Сначала поговорить о ссоре",
+            "nextOpening": "Брат и сестра начинают откровенный диалог, отложив письмо.",
+            "lastingEffect": "Отложенное открытие письма сохраняет тайну, но конфликт может обостриться."
+          }
+        ]
+      }
+    }
+  ]
+}

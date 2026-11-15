@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="640" height="640" data-id="lamp_ceiling" data-state="off" data-lighting="default">
+<defs><radialGradient id="halo" gradientUnits="userSpaceOnUse" cx="320" cy="20" r="230"><stop offset="0" stop-color="#FFD27A" stop-opacity="0.000"/><stop offset="0.5" stop-color="#FFD27A" stop-opacity="0.000"/><stop offset="1" stop-color="#FFD27A" stop-opacity="0.000"/></radialGradient><linearGradient id="c1" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="640"><stop offset="0" stop-color="#FFD27A" stop-opacity="0.000"/><stop offset="1" stop-color="#FFD27A" stop-opacity="0.000"/></linearGradient><linearGradient id="c2" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="520"><stop offset="0" stop-color="#FFF3D0" stop-opacity="0.000"/><stop offset="1" stop-color="#FFD27A" stop-opacity="0.000"/></linearGradient></defs>
+<ellipse cx="320" cy="16" rx="26" ry="9" fill="#5B6A85" fill-opacity=".55"/>
+</svg>

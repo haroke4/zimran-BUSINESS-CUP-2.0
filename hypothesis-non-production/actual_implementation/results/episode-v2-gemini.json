@@ -1,0 +1,437 @@
+{
+  "startedAt": "2026-11-15T02:56:07.463Z",
+  "prompt": "episode-v2",
+  "temperature": 0.55,
+  "results": [
+    {
+      "provider": "gemini",
+      "model": "gemini-3.5-flash-lite",
+      "fixture": "crossing",
+      "relaxedArrayBounds": true,
+      "ms": 8763,
+      "checks": {
+        "allBlockNumbersInOrder": true,
+        "uniqueFlags": true,
+        "distinctChoicesAndResults": true,
+        "delayedCallbacks": true,
+        "distinctCast": true,
+        "batteryChoiceWithinFirstFour": true,
+        "everyBatteryPathHasExactlyOneVariant": true,
+        "audibleRadioRequiresBattery": true,
+        "batteryHasExplicitDelayedPayoff": true,
+        "callbackSourcesAreShared": true
+      },
+      "episode": {
+        "title": "Комендантский час",
+        "dramaticQuestion": "Найдёт ли Мара Лёву по указаниям из рации?",
+        "answer": "Лёва сам заперся в ретрансляторе, а голос принадлежит патрульному, который хочет увести Мару подальше от опасной зоны.",
+        "cast": [
+          {
+            "character": "mara",
+            "want": "найти Лёву",
+            "knowsAtStart": "семейный стук три удара потом два",
+            "speechPattern": "прямая короткими фразами цепляется за детали"
+          },
+          {
+            "character": "radio_voice",
+            "want": "увести Мару с улицы",
+            "knowsAtStart": "где находится Мара и где патрули",
+            "speechPattern": "команды отрывистые официальные"
+          }
+        ],
+        "blocks": [
+          {
+            "number": 1,
+            "location": "crossing",
+            "flag": "check_cabinet",
+            "variants": [
+              {
+                "when": "all",
+                "radio": "silent",
+                "anchor": "Мара стоит у металлического шкафа в воде.",
+                "turn": "Осмотреть дверцу или сразу идти дальше?",
+                "choices": [
+                  {
+                    "label": "Открыть шкаф",
+                    "value": "open",
+                    "immediateResult": "Мара распахивает дверцу шкафа."
+                  },
+                  {
+                    "label": "Пройти мимо",
+                    "value": "skip",
+                    "immediateResult": "Мара оставляет шкаф и идет дальше по воде."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 2,
+            "location": "crossing",
+            "flag": "battery_disposition",
+            "variants": [
+              {
+                "when": "all",
+                "radio": "silent",
+                "anchor": "Внутри шкафа лежит батарейка для рации.",
+                "turn": "Взять батарейку или оставить её на месте?",
+                "choices": [
+                  {
+                    "label": "Взять батарейку",
+                    "value": "take",
+                    "immediateResult": "Мара берет батарейку и вставляет в рацию, раздается щелчок."
+                  },
+                  {
+                    "label": "Оставить батарейку",
+                    "value": "leave",
+                    "immediateResult": "Мара захлопывает шкаф без батарейки, рация молчит."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 3,
+            "location": "trail",
+            "flag": "trail_action",
+            "variants": [
+              {
+                "when": "battery_taken",
+                "radio": "audible",
+                "anchor": "Рация оживает в тишине тропы.",
+                "turn": "Ответить голосу или проигнорировать?",
+                "choices": [
+                  {
+                    "label": "Ответить",
+                    "value": "answer",
+                    "immediateResult": "Голос называет Мару по имени и ведет к ретранслятору."
+                  },
+                  {
+                    "label": "Молчать",
+                    "value": "silent",
+                    "immediateResult": "Мара выключает звук и идет в темноту одна."
+                  }
+                ]
+              },
+              {
+                "when": "battery_left",
+                "radio": "silent",
+                "anchor": "Тропа пуста, рация мертва без питания.",
+                "turn": "Искать фонарь или идти вслепую?",
+                "choices": [
+                  {
+                    "label": "Взять фонарь",
+                    "value": "lantern",
+                    "immediateResult": "Мара включает фонарь и видит следы на грязи."
+                  },
+                  {
+                    "label": "Идти в темноте",
+                    "value": "dark",
+                    "immediateResult": "Мара спотыкается о корни и идет наугад."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 4,
+            "location": "relay",
+            "flag": "relay_check",
+            "variants": [
+              {
+                "when": "battery_taken",
+                "radio": "audible",
+                "anchor": "Ретранслятор гудит неподалеку.",
+                "turn": "Проверить панель или стучать в дверь?",
+                "choices": [
+                  {
+                    "label": "Панель",
+                    "value": "panel",
+                    "immediateResult": "Голос в рации подсказывает код от двери."
+                  },
+                  {
+                    "label": "Стучать",
+                    "value": "knock",
+                    "immediateResult": "Мара бьет три раза, потом два."
+                  }
+                ]
+              },
+              {
+                "when": "battery_left",
+                "radio": "silent",
+                "anchor": "Ретранслятор стоит в темноте безмолвно.",
+                "turn": "Обойти здание или звать брата?",
+                "choices": [
+                  {
+                    "label": "Обойти",
+                    "value": "round",
+                    "immediateResult": "Мара находит приоткрытое окно сзади."
+                  },
+                  {
+                    "label": "Звать",
+                    "value": "shout",
+                    "immediateResult": "Эхо разносит голос Мары по пустому двору."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 5,
+            "location": "relay",
+            "flag": "door_action",
+            "variants": [
+              {
+                "when": "battery_taken",
+                "radio": "audible",
+                "anchor": "Дверь ретранслятора приоткрыта.",
+                "turn": "Войти внутрь или ждать снаружи?",
+                "choices": [
+                  {
+                    "label": "Войти",
+                    "value": "enter",
+                    "immediateResult": "Мара шагает в гудящую темноту."
+                  },
+                  {
+                    "label": "Ждать",
+                    "value": "wait",
+                    "immediateResult": "Мара ждет ответа по рации."
+                  }
+                ]
+              },
+              {
+                "when": "battery_left",
+                "radio": "silent",
+                "anchor": "Около ретранслятора тихо.",
+                "turn": "Стучать семейным стуком или дергать ручку?",
+                "choices": [
+                  {
+                    "label": "Стучать",
+                    "value": "family_knock",
+                    "immediateResult": "Изнутри раздается ответный стук: три, потом два."
+                  },
+                  {
+                    "label": "Дергать",
+                    "value": "pull",
+                    "immediateResult": "Тяжелая дверь поддается и скрипит."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 6,
+            "location": "trail",
+            "flag": "trail_deep",
+            "variants": [
+              {
+                "when": "battery_taken",
+                "radio": "audible",
+                "anchor": "Голос требует повернуть к укрытию.",
+                "turn": "Послушаться приказа или свернуть к реке?",
+                "choices": [
+                  {
+                    "label": "Послушаться",
+                    "value": "obey",
+                    "immediateResult": "Мара идет по указанному маршруту."
+                  },
+                  {
+                    "label": "К реке",
+                    "value": "river",
+                    "immediateResult": "Мара сходит с тропы к воде."
+                  }
+                ]
+              },
+              {
+                "when": "battery_left",
+                "radio": "silent",
+                "anchor": "Фонарь выхватывает старые метки на валуне.",
+                "turn": "Изучить метки или идти дальше?",
+                "choices": [
+                  {
+                    "label": "Метки",
+                    "value": "marks",
+                    "immediateResult": "Мара узнает царапины Лёвы."
+                  },
+                  {
+                    "label": "Дальше",
+                    "value": "forward",
+                    "immediateResult": "Мара спешит мимо валуна."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 7,
+            "location": "crossing",
+            "flag": "return_crossing",
+            "variants": [
+              {
+                "when": "battery_taken",
+                "radio": "audible",
+                "anchor": "Мара возвращается к старому переходу.",
+                "turn": "Проверить шкаф снова или пройти мимо?",
+                "choices": [
+                  {
+                    "label": "Проверить",
+                    "value": "recheck",
+                    "immediateResult": "Внутри шкафа пусто."
+                  },
+                  {
+                    "label": "Мимо",
+                    "value": "bypass",
+                    "immediateResult": "Мара спешит дальше."
+                  }
+                ]
+              },
+              {
+                "when": "battery_left",
+                "radio": "silent",
+                "anchor": "Мара снова у затопленного перехода.",
+                "turn": "Заглянуть в шкаф или идти к ретранслятору?",
+                "choices": [
+                  {
+                    "label": "Заглянуть",
+                    "value": "look",
+                    "immediateResult": "Батарейка всё еще лежит на месте."
+                  },
+                  {
+                    "label": "К ретранслятору",
+                    "value": "relay",
+                    "immediateResult": "Мара не тратит время на шкаф."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 8,
+            "location": "relay",
+            "flag": "relay_inside",
+            "variants": [
+              {
+                "when": "battery_taken",
+                "radio": "audible",
+                "anchor": "Внутри ретранслятора мигает индикатор.",
+                "turn": "Взять трубку рации или выключить её?",
+                "choices": [
+                  {
+                    "label": "Трубка",
+                    "value": "handset",
+                    "immediateResult": "Голос приказывает сидеть тихо."
+                  },
+                  {
+                    "label": "Выключить",
+                    "value": "off",
+                    "immediateResult": "Рация умолкает окончательно."
+                  }
+                ]
+              },
+              {
+                "when": "battery_left",
+                "radio": "silent",
+                "anchor": "Темный зал ретранслятора пуст.",
+                "turn": "Включить рубильник или зажечь спичку?",
+                "choices": [
+                  {
+                    "label": "Рубильник",
+                    "value": "switch",
+                    "immediateResult": "Лампа загорается, освещая углы."
+                  },
+                  {
+                    "label": "Спичка",
+                    "value": "match",
+                    "immediateResult": "Слабый свет выхватывает знакомую куртку."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 9,
+            "location": "trail",
+            "flag": "final_approach",
+            "variants": [
+              {
+                "when": "battery_taken",
+                "radio": "audible",
+                "anchor": "Последний поворот перед выходом.",
+                "turn": "Бежать к посту охраны или спрятаться?",
+                "choices": [
+                  {
+                    "label": "К посту",
+                    "value": "post",
+                    "immediateResult": "Мара выбегает к людям в форме."
+                  },
+                  {
+                    "label": "Спрятаться",
+                    "value": "hide",
+                    "immediateResult": "Мара прячется в тени стены."
+                  }
+                ]
+              },
+              {
+                "when": "battery_left",
+                "radio": "silent",
+                "anchor": "Тишина ночной тропы.",
+                "turn": "Звать Лёву громко или идти молча?",
+                "choices": [
+                  {
+                    "label": "Звать",
+                    "value": "call",
+                    "immediateResult": "Голос Лёвы отзывается изнутри."
+                  },
+                  {
+                    "label": "Молча",
+                    "value": "quiet",
+                    "immediateResult": "Мара шагает беззвучно."
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "number": 10,
+            "location": "relay",
+            "flag": "ending",
+            "variants": [
+              {
+                "when": "all",
+                "radio": "silent",
+                "anchor": "Развязка истории у ретранслятора.",
+                "turn": "Сделать финальный выбор.",
+                "choices": [
+                  {
+                    "label": "Открыть дверь",
+                    "value": "open_door",
+                    "immediateResult": "Мара находит Лёву внутри."
+                  },
+                  {
+                    "label": "Уйти с патрульным",
+                    "value": "leave_patrol",
+                    "immediateResult": "Мара подчиняется голосу и уходит."
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "callbacks": [
+          {
+            "fromBlock": 2,
+            "atBlock": 7,
+            "afterFirstChoice": "Шкаф оказывается пустым, батарейки больше нет.",
+            "afterSecondChoice": "Батарейка по-прежнему лежит в шкафу."
+          },
+          {
+            "fromBlock": 2,
+            "atBlock": 8,
+            "afterFirstChoice": "Рация продолжает принимать указания голоса.",
+            "afterSecondChoice": "Рация мертва, вокруг царит полная тишина."
+          }
+        ]
+      }
+    }
+  ]
+}
