@@ -1,4 +1,10 @@
-import { useEffect, useRef, useState } from "react"
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react"
 import {
   ArrowRight,
   Maximize,
@@ -17,12 +23,24 @@ import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
 import { Spinner } from "@/components/ui/spinner"
 import { errorMessage, request, type PlaybackPackage } from "@/lib/api"
+import { captionTimeline, captionFrame } from "@/lib/caption"
+import { CaptionAudio } from "@/lib/caption-audio"
 import {
   interpolate,
   mediaUrl,
   symbolAt,
   type PlaybackAnimation,
 } from "@/lib/playback"
+
+function subscribeMotion(callback: () => void) {
+  const query = window.matchMedia("(prefers-reduced-motion: reduce)")
+  query.addEventListener("change", callback)
+  return () => query.removeEventListener("change", callback)
+}
+
+function reducedMotion() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches
+}
 
 function formatTime(value: number) {
   const seconds = Math.floor(value)
@@ -95,6 +113,7 @@ export function Player({
 }) {
   const stage = useRef<HTMLElement>(null)
   const audio = useRef<HTMLAudioElement>(null)
+  const captionSound = useRef<CaptionAudio | null>(null)
   const idle = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
   const [animation, setAnimation] = useState<PlaybackAnimation | null>(null)
   const [ready, setReady] = useState(false)
@@ -111,10 +130,42 @@ export function Player({
   )
   const [muted, setMuted] = useState(false)
   const [volume, setVolume] = useState(0.65)
+  const reduced = useSyncExternalStore(subscribeMotion, reducedMotion)
   const ended = time >= playback.duration - 0.025
   const caption = playback.captions.find(
     (line) => time >= line.start && time < line.end
-  )?.text
+  )
+  const typedLine = useMemo(
+    () => (caption ? captionTimeline(caption) : null),
+    [caption]
+  )
+  const typed = typedLine ? captionFrame(typedLine, time, reduced) : null
+  const typedCount = typed?.count ?? 0
+
+  useEffect(() => {
+    const sound = new CaptionAudio()
+    captionSound.current = sound
+    return () => {
+      sound.dispose()
+      captionSound.current = null
+    }
+  }, [])
+
+  useEffect(() => {
+    captionSound.current?.update(
+      typedLine,
+      time,
+      typedCount,
+      playing &&
+        !buffering &&
+        !muted &&
+        volume > 0 &&
+        !reduced &&
+        !document.hidden &&
+        !audio.current?.seeking,
+      volume
+    )
+  }, [typedLine, time, typedCount, playing, buffering, muted, volume, reduced])
 
   useEffect(() => {
     const controller = new AbortController()
@@ -167,7 +218,10 @@ export function Player({
   useEffect(() => {
     const sync = () => setFullscreen(Boolean(document.fullscreenElement))
     const visibility = () => {
-      if (document.hidden) audio.current?.pause()
+      if (document.hidden) {
+        audio.current?.pause()
+        captionSound.current?.stop()
+      }
     }
     document.addEventListener("visibilitychange", visibility)
     document.addEventListener("fullscreenchange", sync)
@@ -185,6 +239,7 @@ export function Player({
 
   function pause() {
     audio.current?.pause()
+    captionSound.current?.stop()
     setPlaying(false)
     setBuffering(false)
     setControls(true)
@@ -200,6 +255,7 @@ export function Player({
     setBuffering(true)
     setError("")
     try {
+      if (!muted && volume > 0 && !reduced) captionSound.current?.prime()
       await audio.current.play()
       clearTimeout(idle.current)
       idle.current = setTimeout(() => setControls(false), 1800)
@@ -212,6 +268,7 @@ export function Player({
 
   function seek(value: number | readonly number[]) {
     if (!audio.current) return
+    captionSound.current?.stop()
     const next = Math.max(
       0,
       Math.min(playback.duration, typeof value === "number" ? value : value[0])
@@ -287,14 +344,20 @@ export function Player({
           setBuffering(false)
         }}
         onWaiting={() => {
-          if (!audio.current?.paused) setBuffering(true)
+          if (!audio.current?.paused) {
+            setBuffering(true)
+            captionSound.current?.stop()
+          }
         }}
+        onSeeking={() => captionSound.current?.stop()}
         onPause={() => {
+          captionSound.current?.stop()
           setPlaying(false)
           setBuffering(false)
           setControls(true)
         }}
         onEnded={() => {
+          captionSound.current?.stop()
           setTime(playback.duration)
           setPlaying(false)
           setBuffering(false)
@@ -379,6 +442,7 @@ export function Player({
               const value = !muted
               setMuted(value)
               if (audio.current) audio.current.muted = value
+              if (value) captionSound.current?.stop()
             }}
           >
             {muted ? <VolumeX /> : <Volume2 />}
@@ -394,6 +458,7 @@ export function Player({
               const next = typeof value === "number" ? value : value[0]
               setVolume(next)
               if (audio.current) audio.current.volume = next
+              if (!next) captionSound.current?.stop()
             }}
           />
         </div>
@@ -423,7 +488,17 @@ export function Player({
             <Spinner className="inline size-4" /> Loading the scene…
           </p>
         )}
-        {caption && <p className="player-caption">{caption}</p>}
+        {caption && typed && (
+          <p className="player-caption" data-complete={typed.complete}>
+            <span className="sr-only" aria-live="polite" aria-atomic="true">
+              {caption.text}
+            </span>
+            <span className="caption-typewriter" aria-hidden="true">
+              <span className="caption-placeholder">{caption.text}</span>
+              <span className="caption-visible">{typed.text}</span>
+            </span>
+          </p>
+        )}
         {time >= playback.choices.revealAt &&
           playback.choices.options.length > 0 && (
             <section className="player-choice" aria-label="Story fork">

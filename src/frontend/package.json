@@ -10,7 +10,9 @@
     "format": "prettier --write \"**/*.{ts,tsx}\"",
     "typecheck": "tsc -b",
     "preview": "vite preview",
-    "test:browser": "node scripts/smoke.mjs"
+    "test:browser": "node scripts/smoke.mjs",
+    "test:captions": "node --test scripts/caption.test.mjs",
+    "test:caption-browser": "node scripts/caption-smoke.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

@@ -370,6 +370,20 @@
   text-wrap: pretty;
 }
 
+.caption-typewriter {
+  display: grid;
+  text-wrap: wrap;
+  white-space: pre-wrap;
+}
+
+.caption-typewriter > span {
+  grid-area: 1 / 1;
+}
+
+.caption-placeholder {
+  visibility: hidden;
+}
+
 .player-transport {
   display: flex;
   align-items: center;
