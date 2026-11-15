@@ -2,60 +2,61 @@
 
 Production: [businesscup.toilap.com/app](https://businesscup.toilap.com/app). Server layout and rollback: [deploy/README.md](deploy/README.md).
 
-Веб-приложение для интерактивных анимированных историй: FastAPI, React и закрытый Node-генератор. Аккаунт не нужен. Готовая сцена приходит в браузер как SVG-слои, анимационные дорожки, смешанный аудиофайл, подписи и доступные сейчас варианты выбора.
+A web app for interactive animated stories, built with FastAPI, React, and a private Node.js generator. No account is required. Each completed scene reaches the browser as SVG layers, animation tracks, a mixed audio file, captions, and the choices currently available.
 
-## Запуск
+## Getting started
 
-Нужны Python 3.12+, Node.js 24 и `uv`.
+Requires Python 3.12+, Node.js 24, and `uv`.
 
 ```sh
 ./scripts/setup.sh
 ./scripts/start.sh
 ```
 
-Откройте [приложение](http://127.0.0.1:8000/app) или [лендинг](http://127.0.0.1:8000/). Если порт занят, запустите `STORYFORK_PORT=18080 ./scripts/start.sh`.
+Open the [app](http://127.0.0.1:8000/app) or the [landing page](http://127.0.0.1:8000/). If the port is occupied, run `STORYFORK_PORT=18080 ./scripts/start.sh`.
 
-«Play corridor demo» запускает подготовленную сцену без модели. У неё два разных продолжения: открыть дверь и уйти. Это полноценные пакеты с анимацией и звуком, которые проходят через тот же серверный экспорт и плеер.
+“Play corridor demo” starts a prepared scene without calling a model. It has two distinct continuations: open the door or leave. Both are complete packages with animation and audio, processed through the same server export pipeline and player.
 
-«Create a series» запускает живую генерацию короткого эпизода: первая сцена длится 30 секунд, затем выбранное действие ведёт к одному из двух 30-секундных финалов. Скрытый план и последствия обоих вариантов хранятся на сервере. Скопируйте `.env.example` в `.env` и настройте серверный провайдер. Для Vertex требуется доступ к Google Cloud через Application Default Credentials и проект с включённым API. Ключи и настройки модели не добавляйте в `VITE_*`.
+“Create a series” generates a short episode live: a 30-second opening scene, followed by one of two 30-second endings based on the chosen action. The hidden plan and the consequences of both choices stay on the server. Copy `.env.example` to `.env` and configure the server-side provider. Vertex requires Google Cloud access through Application Default Credentials and a project with the API enabled. Do not put API keys or model settings in `VITE_*` variables.
 
-Для разработки интерфейса запустите FastAPI на 8000 и отдельно `npm --prefix src/frontend run dev`. Vite проксирует `/api` и `/media` на сервер. Для другого порта задайте `STORYFORK_API_TARGET=http://127.0.0.1:18080 npm --prefix src/frontend run dev`.
+For frontend development, run FastAPI on port 8000 and separately run `npm --prefix src/frontend run dev`. Vite proxies `/api` and `/media` to the server. To use a different backend port, run `STORYFORK_API_TARGET=http://127.0.0.1:18080 npm --prefix src/frontend run dev`.
 
-## Структура
+## Project structure
 
-- `src/frontend` — React: библиотека, создание истории и универсальный плеер.
-- `src/backend` — публичные схемы, задания генерации, SQLite, анонимные сессии и серверная обработка решений.
-- `src/generation` — приватный Node-пакет: сценарий, генерация векторной сцены, постановка, экспорт анимации и офлайн-рендер звука.
-- `src/pages`, `src/static` — лендинг, готовые портреты и собранный интерфейс.
-- `output/app` — локальная база и экспортированные медиа; при размещении используйте постоянный диск.
+- `src/frontend` — React: the story library, story creation, and a universal player.
+- `src/backend` — public schemas, generation jobs, SQLite, anonymous sessions, and server-side choice handling.
+- `src/generation` — a private Node.js package for scripting, vector scene generation, staging, animation export, and offline audio rendering.
+- `src/pages`, `src/static` — the landing page, prepared portraits, and the built frontend.
+- `output/app` — the local database and exported media; use persistent storage when deploying.
 
-Все прототипы, экспериментальные ассеты, сравнения моделей и презентационные материалы находятся в [`hypothesis-non-production/`](hypothesis-non-production/README.md). Приложение не импортирует их во время работы.
+All prototypes, experimental assets, model comparisons, and presentation materials are in [`hypothesis-non-production/`](hypothesis-non-production/README.md). The app does not import them at runtime.
 
-## Публичный API
+## Public API
 
-| Запрос | Результат |
+| Request | Result |
 | --- | --- |
-| `POST /api/stories` | `{storyId, jobId}`; вход: `premise`, `mood`, `notes`, `mode` (`live` или `demo`) |
-| `GET /api/stories` | Истории и статус прогресса текущего анонимного зрителя |
-| `GET /api/jobs/status?job_id=…` | `queued`, `generating`, `ready` или `failed` |
-| `POST /api/jobs/retry` | Повтор неудачного задания; вход: `jobId` |
-| `GET /api/playback?story_id=…` | Публичный пакет текущей сцены и её `revision` |
-| `POST /api/choices` | Следующее задание; вход: `storyId`, `choiceId`, `expectedRevision`, `requestId` |
-| `GET /media/…` | Только зарегистрированные результаты экспорта |
+| `POST /api/stories` | `{storyId, jobId}`; input: `premise`, `mood`, `notes`, `mode` (`live` or `demo`) |
+| `GET /api/stories` | Stories and progress for the current anonymous viewer |
+| `GET /api/jobs/status?job_id=…` | `queued`, `generating`, `ready`, or `failed` |
+| `POST /api/jobs/retry` | Retry a failed job; input: `jobId` |
+| `GET /api/playback?story_id=…` | The public package for the current scene and its `revision` |
+| `POST /api/choices` | The next job; input: `storyId`, `choiceId`, `expectedRevision`, `requestId` |
+| `GET /media/…` | Registered exports only |
 
-Повтор одного `requestId` с тем же выбором возвращает прежнее задание. Устаревшая ревизия и недоступный выбор отклоняются. По общей ссылке новый зритель начинает с первой сцены и получает собственную историю решений. Удаление cookie начинает новую анонимную сессию.
+Repeating a `requestId` with the same choice returns the original job. Outdated revisions and unavailable choices are rejected. A new viewer opening a shared link starts at the first scene and gets their own choice history. Deleting the cookie starts a new anonymous session.
 
-Промпты, полное состояние сюжета, будущие исходы, модельные ответы и диагностика остаются на сервере. Публичный пакет собирается по явному списку полей. Полная библиотека движений и звуковой синтезатор не загружаются в браузер; для звука используется один готовый WAV на сцену. Голосовой озвучки реплик пока нет.
+Prompts, the full story state, future outcomes, model responses, and diagnostics stay on the server. The public package is assembled from an explicit field allowlist. The full motion library and audio synthesizer are not loaded into the browser; audio is delivered as one prepared WAV file per scene. Dialogue voiceovers are not yet available.
 
-## Проверки
+## Validation
 
 ```sh
 uv run --locked --extra test python -m unittest discover -s src/backend -p 'test_*.py'
 npm --prefix src/generation test
 npm --prefix src/frontend run build
 npm --prefix src/frontend run lint
+npm --prefix src/frontend run test:captions
 node scripts/smoke.mjs http://127.0.0.1:8000
 npm --prefix src/frontend run test:browser
 ```
 
-Одновременно запускайте один процесс FastAPI: локальная очередь управляется этим процессом. При его перезапуске незавершённые задания помечаются как неудачные и доступны для повтора. Хранилище блокируется активным сервером: второй запуск с тем же каталогом завершится понятной ошибкой. Для независимого локального экземпляра задайте другой `STORYFORK_DATA_DIR`. Для нескольких серверных процессов понадобится внешняя очередь. Публичная генерация ограничивается по размеру запроса, числу заданий и частоте обращений.
+Run one FastAPI process at a time: that process manages the local queue. On restart, unfinished jobs are marked as failed and can be retried. The active server locks the data directory; a second instance using the same directory exits with a clear error. Set a different `STORYFORK_DATA_DIR` for an independent local instance. Multiple server processes require an external queue. Public generation is limited by request size, job count, and request rate.
